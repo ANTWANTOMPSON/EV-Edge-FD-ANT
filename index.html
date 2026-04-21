@@ -3,307 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ant EV Edge</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>ANT EV EDGE</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0a0a;
-  --surface:#111;
-  --surface2:#1a1a1a;
-  --surface3:#161616;
-  --border:#2a2a2a;
-  --border2:#222;
-  --green:#2d6a4f;
-  --green-light:#40916c;
-  --green-dim:rgba(45,106,79,.12);
-  --red:#e63946;
-  --red-dim:rgba(230,57,70,.12);
-  --blue:#4daaff;
-  --blue-dim:rgba(77,170,255,.1);
-  --gold:#f4b942;
-  --gold-dim:rgba(244,185,66,.1);
-  --text:#f0f0f0;
-  --muted:#666;
-  --muted2:#333;
-  --muted3:#444;
+  --bg:#050508;--bg2:#080810;--surface:#0d0d14;--surface2:#12121c;
+  --border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.04);
+  --green:#00ff87;--green2:#00cc6a;--green3:#008f4c;--green-dim:rgba(0,255,135,.07);
+  --red:#ff3d57;--red-dim:rgba(255,61,87,.1);
+  --blue:#4d9fff;--blue-dim:rgba(77,159,255,.1);
+  --gold:#ffb800;--gold-dim:rgba(255,184,0,.1);
+  --text:#e8e8f0;--text2:#9090a8;--text3:#50506a;
 }
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
-a{color:var(--blue)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--green3);border-radius:2px}
+body{background:var(--bg);color:var(--text);font-family:'Barlow Condensed',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,135,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,135,.018) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");background-size:256px 256px;pointer-events:none;z-index:0;opacity:.5}
+header,.nav-bar,main{position:relative;z-index:1}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
 
-/* ─── HEADER ─── */
-header{
-  border-bottom:1px solid var(--border);padding:1.2rem 2rem;
-  display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;background:rgba(10,10,10,0.96);
-  backdrop-filter:blur(8px);z-index:100;
-}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--green-light);letter-spacing:.05em;line-height:1}
-.header-right{display:flex;align-items:center;gap:1.5rem}
-.live{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:11px;color:var(--green-light);letter-spacing:.1em}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--green-light);animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+header{padding:0 2.5rem;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(5,5,8,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:100}
+header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,135,.35),transparent)}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.18em;color:var(--green);text-shadow:0 0 24px rgba(0,255,135,.25),0 0 48px rgba(0,255,135,.08);line-height:1}
+.logo-sub{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--text3);letter-spacing:.35em;margin-left:.6rem;vertical-align:middle}
+.live-badge{display:flex;align-items:center;gap:7px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green);letter-spacing:.12em;padding:5px 13px;border:1px solid rgba(0,255,135,.18);border-radius:2px;background:rgba(0,255,135,.04)}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-/* ─── TABS ─── */
-.nav-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:0}
-.nav-tab{
-  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.08em;
-  padding:.7rem 1.4rem;background:transparent;border:none;color:var(--muted);
-  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;
-}
-.nav-tab.active{color:var(--green-light);border-bottom-color:var(--green-light)}
-.nav-tab:hover:not(.active){color:var(--text)}
+.nav-bar{position:sticky;top:62px;z-index:99;background:rgba(5,5,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2.5rem;display:flex}
+.nav-tab{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.16em;padding:.8rem 1.5rem;background:transparent;border:none;color:var(--text3);cursor:pointer;position:relative;transition:color .2s}
+.nav-tab::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);box-shadow:0 0 8px var(--green);transform:scaleX(0);transition:transform .2s}
+.nav-tab.active{color:var(--green)}.nav-tab.active::after{transform:scaleX(1)}.nav-tab:hover:not(.active){color:var(--text2)}
 
-/* ─── MAIN ─── */
-main{padding:2rem;max-width:1060px;margin:0 auto}
-.tab-content{display:none}
-.tab-content.active{display:block}
+main{padding:2rem 2.5rem;max-width:1100px;margin:0 auto}
+.tab-content{display:none}.tab-content.active{display:block}
 
-/* ─── SETUP ─── */
-.setup{border:1px solid var(--green);border-radius:4px;padding:1.5rem;margin-bottom:1.5rem;background:rgba(45,106,79,.05)}
-.setup-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--green-light);letter-spacing:.05em;margin-bottom:.4rem}
-.setup-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.setup{position:relative;border:1px solid rgba(0,255,135,.14);border-radius:6px;padding:1.4rem 1.8rem;margin-bottom:1.4rem;background:linear-gradient(135deg,rgba(0,255,135,.04),rgba(0,255,135,.01));overflow:hidden}
+.setup::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:linear-gradient(180deg,var(--green),transparent)}
+.setup-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--green);letter-spacing:.2em;margin-bottom:.4rem}
+.setup-desc{font-size:14px;color:var(--text3);line-height:1.6;margin-bottom:1rem;font-weight:300}
+.ant-setup{position:relative;border:1px solid rgba(255,184,0,.16);border-radius:6px;padding:1.4rem 1.8rem;margin-bottom:1.8rem;background:linear-gradient(135deg,rgba(255,184,0,.04),rgba(255,184,0,.01));overflow:hidden}
+.ant-setup::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:linear-gradient(180deg,var(--gold),transparent)}
+.ant-setup-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--gold);letter-spacing:.2em;margin-bottom:.4rem}
 .flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-input[type=text],input[type=password],input[type=number]{
-  background:var(--surface2);border:1px solid var(--border);border-radius:3px;
-  padding:9px 13px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;outline:none;
-}
-input:focus{border-color:var(--green-light)}
+input[type=text],input[type=password],input[type=number],select{background:var(--surface2);border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:10px 14px;color:var(--text);font-family:'Space Mono',monospace;font-size:12px;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{border-color:rgba(0,255,135,.35);box-shadow:0 0 0 3px rgba(0,255,135,.05)}
+select{cursor:pointer}
 
-.btn{
-  background:var(--green);color:#fff;border:none;border-radius:3px;
-  padding:9px 20px;font-family:'Bebas Neue',sans-serif;font-size:1.05rem;
-  letter-spacing:.05em;cursor:pointer;white-space:nowrap;transition:background .15s;
-}
-.btn:hover{background:var(--green-light)}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.btn-ghost{background:transparent;color:var(--green-light);border:1px solid var(--green);font-size:.85rem}
-.btn-blue{background:#1a5a8a;color:#fff}
-.btn-blue:hover{background:var(--blue);color:#000}
+.btn{background:linear-gradient(135deg,var(--green3),var(--green2));color:#000;border:none;border-radius:4px;padding:10px 22px;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;cursor:pointer;white-space:nowrap;transition:all .2s;font-weight:700}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 22px rgba(0,255,135,.28)}.btn:active{transform:translateY(0)}.btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--green);border:1px solid rgba(0,255,135,.28);font-size:.85rem}
+.btn-ghost:hover{background:rgba(0,255,135,.07);box-shadow:none;transform:none}
+.key-status{margin-top:8px;font-family:'Space Mono',monospace;font-size:11px;color:var(--text3)}.key-ok{color:var(--green)}.key-err{color:var(--red)}
 
-.key-status{margin-top:8px;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)}
-.key-ok{color:var(--green-light)}
-.key-err{color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:1.8rem}
+.stat{background:var(--surface);padding:1rem 1.2rem;position:relative;transition:background .2s}.stat:hover{background:var(--surface2)}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,135,.12),transparent)}
+.stat-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.15em;margin-bottom:6px;text-transform:uppercase}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.03em;line-height:1}
+.g{color:var(--green);text-shadow:0 0 14px rgba(0,255,135,.35)}.r{color:var(--red)}.b{color:var(--blue)}.gold{color:var(--gold)}
 
-/* ─── STATS ─── */
-.stats{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-  gap:1px;background:var(--border);border:1px solid var(--border);
-  border-radius:4px;overflow:hidden;margin-bottom:1.5rem;
-}
-.stat{background:var(--surface);padding:.9rem 1.1rem}
-.stat-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:5px}
-.stat-val{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.03em}
-.g{color:var(--green-light)}.r{color:var(--red)}.b{color:var(--blue)}.gold{color:var(--gold)}
+.controls{display:flex;gap:10px;margin-bottom:1.8rem;flex-wrap:wrap;align-items:center}
+.tgroup{display:flex;border:1px solid rgba(255,255,255,.07);border-radius:4px;overflow:hidden;background:var(--surface)}
+.tog{padding:8px 18px;background:transparent;border:none;border-right:1px solid rgba(255,255,255,.05);color:var(--text3);font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.12em;cursor:pointer;transition:all .15s}
+.tog:last-child{border-right:none}.tog.on{background:rgba(0,255,135,.1);color:var(--green);text-shadow:0 0 8px rgba(0,255,135,.4)}.tog:hover:not(.on){color:var(--text2);background:rgba(255,255,255,.03)}
+.status-bar{font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);margin-bottom:1.3rem;min-height:18px;letter-spacing:.05em}
 
-/* ─── CONTROLS ─── */
-.controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center}
-.tgroup{display:flex;border:1px solid var(--border);border-radius:3px;overflow:hidden}
-.tog{
-  padding:8px 16px;background:transparent;border:none;
-  border-right:1px solid var(--border);color:var(--muted);
-  font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.05em;cursor:pointer;transition:all .15s;
-}
-.tog:last-child{border-right:none}
-.tog.on{background:var(--green);color:#fff;font-weight:500}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.2em;color:var(--text2);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
+.section-title::before{content:'';display:block;width:2px;height:1.2em;background:linear-gradient(180deg,var(--green),transparent);border-radius:1px}
 
-.status-bar{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:1.2rem;min-height:18px}
-
-/* ─── PICKS ─── */
-.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.05em;color:var(--green-light);margin-bottom:1rem}
-.picks{display:flex;flex-direction:column;gap:12px}
-
-.pick{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;animation:fadeUp .3s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.pick.strong{border-left:3px solid var(--green-light)}
-.pick.lean{border-left:3px solid var(--blue)}
-.pick.skip{border-left:3px solid var(--muted2)}
-
-.pick-top{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem .8rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.pick-num{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--muted2);line-height:1;min-width:36px}
+.picks{display:flex;flex-direction:column;gap:14px}
+.pick{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;animation:fadeUp .4s ease both;transition:border-color .2s,box-shadow .2s}
+.pick:hover{border-color:rgba(255,255,255,.1);box-shadow:0 8px 40px rgba(0,0,0,.4)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.pick.strong{border-left:2px solid var(--green)}.pick.strong:hover{box-shadow:0 8px 40px rgba(0,255,135,.08)}
+.pick.lean{border-left:2px solid var(--blue)}.pick.lean:hover{box-shadow:0 8px 40px rgba(77,159,255,.08)}
+.pick.skip{border-left:2px solid var(--text3)}
+.pick.rank-1{background:linear-gradient(135deg,rgba(0,255,135,.04) 0%,var(--surface) 50%)}
+.pick-top{display:flex;align-items:center;gap:1.2rem;padding:1.1rem 1.4rem .9rem;border-bottom:1px solid var(--border2);flex-wrap:wrap}
+.pick-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:rgba(255,255,255,.05);line-height:1;min-width:44px}
+.pick.rank-1 .pick-num{color:rgba(0,255,135,.14);text-shadow:0 0 20px rgba(0,255,135,.15)}
 .pick-info{flex:1;min-width:160px}
-.pick-game{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:.03em;line-height:1;margin-bottom:3px}
-.pick-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em}
-.pick-nums{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.num-block{text-align:right}
-.num-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;margin-bottom:2px}
-.num-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:500}
+.pick-game{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;line-height:1;margin-bottom:4px}
+.pick-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:.08em}
+.pick-nums{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.num-block{text-align:right}.num-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.12em;margin-bottom:3px}
+.num-val{font-family:'Space Mono',monospace;font-size:16px;font-weight:700;line-height:1}
+.tag{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.15em;padding:5px 14px;border-radius:3px}
+.tag.strong{background:rgba(0,255,135,.1);color:var(--green);border:1px solid rgba(0,255,135,.22);text-shadow:0 0 8px rgba(0,255,135,.3)}
+.tag.lean{background:rgba(77,159,255,.1);color:var(--blue);border:1px solid rgba(77,159,255,.22)}
+.tag.skip{background:rgba(255,255,255,.04);color:var(--text3);border:1px solid var(--border)}
 
-.tag{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.1em;padding:4px 11px;border-radius:2px}
-.tag.strong{background:rgba(45,106,79,.2);color:var(--green-light);border:1px solid rgba(64,145,108,.3)}
-.tag.lean{background:rgba(77,170,255,.1);color:var(--blue);border:1px solid rgba(77,170,255,.2)}
-.tag.skip{background:rgba(80,80,80,.1);color:var(--muted);border:1px solid var(--border)}
-
-/* ─── ANALYSIS ACCORDION ─── */
-.analysis-tabs{display:flex;border-bottom:1px solid var(--border2);background:var(--surface2)}
-.atab{
-  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;
-  padding:.55rem 1rem;background:transparent;border:none;color:var(--muted);
-  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;
-}
-.atab.on{color:var(--green-light);border-bottom-color:var(--green-light)}
-.analysis-panel{padding:1rem 1.2rem;font-size:13px;color:#aaa;line-height:1.75;display:none;background:var(--surface)}
+.analysis-tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border2)}
+.atab{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.12em;padding:.6rem 1.2rem;background:transparent;border:none;color:var(--text3);cursor:pointer;position:relative;transition:color .15s}
+.atab::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--green);box-shadow:0 0 6px var(--green);transform:scaleX(0);transition:transform .15s}
+.atab.on{color:var(--green)}.atab.on::after{transform:scaleX(1)}.atab:hover:not(.on){color:var(--text2)}
+.analysis-panel{padding:1.1rem 1.4rem;font-size:13px;color:var(--text2);line-height:1.75;display:none;background:var(--surface)}
 .analysis-panel.on{display:block}
 
-.reasoning-body{font-size:13px;color:#bbb;line-height:1.8}
-.reasoning-body .verdict{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;
-  padding:5px 14px;border-radius:2px;margin-bottom:.9rem;
-}
-.verdict.take{background:var(--green-dim);color:var(--green-light);border:1px solid rgba(64,145,108,.3)}
-.verdict.fade{background:var(--red-dim);color:var(--red);border:1px solid rgba(230,57,70,.3)}
-.verdict.neutral{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(77,170,255,.2)}
+.reasoning-body{font-size:13px;color:var(--text2);line-height:1.8;font-weight:400}
+.verdict-badge{display:inline-flex;align-items:center;gap:8px;font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.15em;padding:6px 16px;border-radius:3px;margin-bottom:1rem}
+.verdict-badge.take{background:rgba(0,255,135,.1);color:var(--green);border:1px solid rgba(0,255,135,.22);box-shadow:0 0 18px rgba(0,255,135,.07)}
+.verdict-badge.fade{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,61,87,.22)}
+.verdict-badge.neutral{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(77,159,255,.22)}
+.label-sm{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.15em;margin-bottom:.4rem;text-transform:uppercase}
+.factor-item{font-size:12px;color:var(--text2);padding:.3rem 0 .3rem .8rem;border-left:1px solid rgba(0,255,135,.25);margin-bottom:.35rem;font-weight:400}
+.flag-item{font-size:12px;color:#ff8090;padding:.3rem 0 .3rem .8rem;border-left:1px solid rgba(255,61,87,.35);margin-bottom:.35rem}
+.final-line{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;color:var(--text);letter-spacing:.03em;padding-top:.7rem;border-top:1px solid var(--border2);margin-top:.4rem}
+.conf-bar{height:3px;border-radius:2px;background:rgba(255,255,255,.06);margin-top:5px;overflow:hidden}
+.conf-fill{height:100%;border-radius:2px;transition:width .6s cubic-bezier(.4,0,.2,1)}
 
 .injury-list{display:flex;flex-direction:column;gap:8px}
-.injury-item{padding:.7rem 1rem;background:var(--surface2);border-radius:3px;border-left:2px solid var(--muted3)}
-.injury-item.out{border-left-color:var(--red)}
-.injury-item.questionable{border-left-color:var(--gold)}
-.injury-item.probable{border-left-color:var(--green-light)}
-.injury-name{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px}
-.injury-detail{font-size:12px;color:var(--muted)}
-.injury-status{font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.08em;float:right;margin-top:-18px}
-.injury-status.out{color:var(--red)}
-.injury-status.questionable{color:var(--gold)}
-.injury-status.probable{color:var(--green-light)}
+.injury-item{padding:.75rem 1rem;background:var(--surface2);border-radius:4px;border-left:2px solid var(--text3);position:relative}
+.injury-item.out{border-left-color:var(--red);background:rgba(255,61,87,.04)}.injury-item.questionable{border-left-color:var(--gold);background:rgba(255,184,0,.03)}.injury-item.probable{border-left-color:var(--green);background:rgba(0,255,135,.03)}
+.injury-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;letter-spacing:.03em}
+.injury-detail{font-size:12px;color:var(--text3);font-weight:300}
+.injury-status-badge{position:absolute;top:.75rem;right:1rem;font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.12em}
+.injury-status-badge.out{color:var(--red)}.injury-status-badge.questionable{color:var(--gold)}.injury-status-badge.probable{color:var(--green)}
+.bet-note{font-size:11px;color:var(--blue);margin-top:4px;font-weight:400}
+.team-divider{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.15em;margin:.9rem 0 .6rem;text-transform:uppercase;display:flex;align-items:center;gap:.6rem}
+.team-divider::after{content:'';flex:1;height:1px;background:var(--border2)}
 
 .news-list{display:flex;flex-direction:column;gap:8px}
-.news-item{padding:.7rem 1rem;background:var(--surface2);border-radius:3px;border-left:2px solid var(--blue)}
-.news-headline{font-size:13px;color:var(--text);margin-bottom:3px;line-height:1.4}
-.news-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+.news-item{padding:.75rem 1rem;background:var(--surface2);border-radius:4px;border-left:2px solid var(--blue)}
+.news-headline{font-size:14px;color:var(--text);margin-bottom:4px;line-height:1.4;font-weight:500}
+.news-meta{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3)}
+.news-impact{font-size:12px;color:var(--text3);margin-top:5px;line-height:1.5;padding-top:5px;border-top:1px solid var(--border2);font-weight:300}
 
-.loading-inline{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
-.spin{display:inline-block;width:10px;height:10px;border:1.5px solid var(--muted2);border-top-color:var(--green-light);border-radius:50%;animation:spin .8s linear infinite}
+.loading-inline{font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);display:flex;align-items:center;gap:10px;letter-spacing:.05em}
+.spin{display:inline-block;width:12px;height:12px;border:1.5px solid rgba(255,255,255,.07);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ─── PROPS SECTION ─── */
-.props-controls{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center}
-.prop-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:4px;
-  overflow:hidden;margin-bottom:10px;animation:fadeUp .3s ease both;
-}
-.prop-card.over{border-left:3px solid var(--green-light)}
-.prop-card.under{border-left:3px solid var(--red)}
-.prop-card.neutral-prop{border-left:3px solid var(--blue)}
-
-.prop-header{display:flex;align-items:center;gap:1rem;padding:.9rem 1.2rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.prop-player{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.03em;line-height:1}
-.prop-game-info{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px}
-.prop-line-info{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-left:auto}
-.prop-stat-type{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--gold);letter-spacing:.03em}
-.prop-line{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--text)}
-.prop-tag{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.1em;padding:4px 11px;border-radius:2px}
-.prop-tag.over-tag{background:var(--green-dim);color:var(--green-light);border:1px solid rgba(64,145,108,.3)}
-.prop-tag.under-tag{background:var(--red-dim);color:var(--red);border:1px solid rgba(230,57,70,.3)}
-.prop-tag.neutral-tag{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(77,170,255,.2)}
-
-.prop-body{padding:1rem 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
-.prop-stats-box{background:var(--surface2);border-radius:3px;padding:.8rem 1rem}
-.prop-stats-title{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:.6rem}
-.prop-stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;font-size:12px}
-.prop-stat-label{color:var(--muted)}
-.prop-stat-val{font-family:'DM Mono',monospace;font-weight:500}
-.prop-stat-val.above{color:var(--green-light)}
-.prop-stat-val.below{color:var(--red)}
-
-.prop-reasoning{grid-column:1/-1;font-size:13px;color:#aaa;line-height:1.75}
-.prop-verdict{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.1em;
-  padding:4px 12px;border-radius:2px;margin-bottom:.7rem;
-}
-
-.confidence-bar{height:4px;border-radius:2px;background:var(--muted2);margin-top:4px;overflow:hidden}
-.confidence-fill{height:100%;border-radius:2px;transition:width .5s ease;background:var(--green-light)}
-
-/* ─── PLAYER SEARCH ─── */
-.player-search-box{
-  background:var(--surface);border:1px solid var(--border);border-radius:4px;
-  padding:1.2rem;margin-bottom:1.5rem;
-}
-.player-search-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--green-light);letter-spacing:.05em;margin-bottom:.8rem}
+.player-search-box{border:1px solid rgba(255,184,0,.15);border-radius:6px;padding:1.4rem 1.6rem;margin-bottom:1.8rem;background:var(--surface);position:relative;overflow:hidden}
+.player-search-box::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:linear-gradient(180deg,var(--gold),transparent)}
+.player-search-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--gold);letter-spacing:.2em;margin-bottom:.4rem}
 .search-row{display:flex;gap:10px;flex-wrap:wrap}
-.sport-sel{
-  background:var(--surface2);border:1px solid var(--border);border-radius:3px;
-  padding:9px 13px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;outline:none;cursor:pointer;
-}
+.prop-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:12px;animation:fadeUp .4s ease both;transition:box-shadow .2s}
+.prop-card:hover{box-shadow:0 8px 40px rgba(0,0,0,.4)}.prop-card.over{border-left:2px solid var(--green)}.prop-card.over:hover{box-shadow:0 8px 40px rgba(0,255,135,.08)}.prop-card.under{border-left:2px solid var(--red)}.prop-card.under:hover{box-shadow:0 8px 40px rgba(255,61,87,.08)}.prop-card.neutral-prop{border-left:2px solid var(--blue)}
+.prop-header{display:flex;align-items:center;gap:1rem;padding:1rem 1.4rem;border-bottom:1px solid var(--border2);flex-wrap:wrap;background:linear-gradient(135deg,rgba(255,184,0,.03) 0%,transparent 60%)}
+.prop-player{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.05em;line-height:1}
+.prop-game-info{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);margin-top:3px}
+.prop-line-info{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-left:auto}
+.prop-stat-type{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--gold);letter-spacing:.05em;text-shadow:0 0 10px rgba(255,184,0,.25)}
+.prop-line{font-family:'Space Mono',monospace;font-size:22px;font-weight:700}
+.prop-tag{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.15em;padding:5px 14px;border-radius:3px}
+.prop-tag.over-tag{background:rgba(0,255,135,.1);color:var(--green);border:1px solid rgba(0,255,135,.22)}.prop-tag.under-tag{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,61,87,.22)}.prop-tag.neutral-tag{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(77,159,255,.22)}
+.prop-body{padding:1.1rem 1.4rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.prop-stats-box{background:var(--surface2);border-radius:4px;padding:.9rem 1rem;border:1px solid var(--border2)}
+.prop-stats-title{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.15em;margin-bottom:.7rem}
+.prop-stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem;font-size:13px}
+.prop-stat-label{color:var(--text3);font-weight:300}.prop-stat-val{font-family:'Space Mono',monospace;font-weight:700;font-size:12px}.prop-stat-val.above{color:var(--green)}.prop-stat-val.below{color:var(--red)}
+.prop-reasoning{grid-column:1/-1;font-size:13px;color:var(--text2);line-height:1.75;font-weight:300}
 
-/* ─── NEWS FEED ─── */
-.news-feed{display:flex;flex-direction:column;gap:10px;margin-top:1rem}
-.news-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:4px;
-  padding:1rem 1.2rem;display:flex;gap:1rem;align-items:flex-start;
-  animation:fadeUp .3s ease both;
-}
-.news-sport-badge{
-  font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.1em;
-  padding:3px 8px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-top:2px;
-}
-.news-sport-badge.nba{background:rgba(77,170,255,.15);color:var(--blue);border:1px solid rgba(77,170,255,.25)}
-.news-sport-badge.mlb{background:var(--red-dim);color:var(--red);border:1px solid rgba(230,57,70,.25)}
-.news-sport-badge.injury{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(244,185,66,.25)}
-.news-card-text{}
-.news-card-headline{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:4px}
-.news-card-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
-.news-impact{font-size:12px;color:#aaa;margin-top:5px;line-height:1.5;padding-top:5px;border-top:1px solid var(--border2)}
+.news-feed{display:flex;flex-direction:column;gap:12px;margin-top:.5rem}
+.news-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.1rem 1.4rem;display:flex;gap:1rem;align-items:flex-start;animation:fadeUp .3s ease both;transition:border-color .2s,box-shadow .2s}
+.news-card:hover{border-color:rgba(255,255,255,.1);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.news-sport-badge{font-family:'Bebas Neue',sans-serif;font-size:.75rem;letter-spacing:.12em;padding:4px 10px;border-radius:3px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.news-sport-badge.nba{background:rgba(77,159,255,.1);color:var(--blue);border:1px solid rgba(77,159,255,.2)}.news-sport-badge.mlb{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,61,87,.2)}.news-sport-badge.injury{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(255,184,0,.2)}
+.news-card-headline{font-size:15px;color:var(--text);line-height:1.5;margin-bottom:5px;font-weight:500}
+.news-card-meta{font-family:'Space Mono',monospace;font-size:10px;color:var(--text3)}
+.news-card-impact{font-size:12px;color:var(--text3);margin-top:6px;line-height:1.5;padding-top:6px;border-top:1px solid var(--border2);font-weight:300}
 
-.empty{text-align:center;padding:3rem;color:var(--muted)}
-.empty-t{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.05em;margin-bottom:.5rem}
+.empty{text-align:center;padding:4rem 2rem;color:var(--text3)}.empty-t{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.15em;margin-bottom:.6rem;color:var(--text2)}
+.context-box{margin-top:.9rem;font-size:13px;color:var(--text2);padding:.9rem 1rem;background:var(--surface2);border-radius:4px;border:1px solid var(--border2);line-height:1.7;font-weight:300}
+.disclaimer{font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);margin-top:.9rem;padding-top:.6rem;border-top:1px solid var(--border2);letter-spacing:.05em}
 
-footer{border-top:1px solid var(--border);padding:1.2rem 2rem;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);text-align:center;letter-spacing:.05em;margin-top:3rem}
+footer{border-top:1px solid var(--border);padding:1.4rem 2.5rem;font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);text-align:center;letter-spacing:.1em;margin-top:4rem;position:relative}
+footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,135,.3),transparent)}
 
-@media(max-width:600px){
-  header,main{padding:1rem}
-  .pick-top,.prop-header{flex-direction:column;align-items:flex-start}
-  .prop-body{grid-template-columns:1fr}
-  .prop-line-info{margin-left:0}
-}
+@media(max-width:640px){header,.nav-bar,main{padding-left:1rem;padding-right:1rem}.pick-top,.prop-header{flex-direction:column;align-items:flex-start}.prop-body{grid-template-columns:1fr}.prop-line-info{margin-left:0}}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">ANT</div>
-  <div class="header-right">
-    <div class="live"><div class="dot"></div>LIVE ODDS</div>
-  </div>
+  <div class="logo">ANT<span class="logo-sub">EV EDGE</span></div>
+  <div class="live-badge"><div class="dot"></div>LIVE ODDS</div>
 </header>
 
-<div class="nav-tabs" style="padding:0 2rem;background:rgba(10,10,10,0.98);border-bottom:1px solid var(--border);position:sticky;top:62px;z-index:99;">
-  <button class="nav-tab active" onclick="switchTab('ev')">EV PICKS</button>
-  <button class="nav-tab" onclick="switchTab('props')">PLAYER PROPS</button>
-  <button class="nav-tab" onclick="switchTab('news')">INJURY & NEWS</button>
+<div class="nav-bar">
+  <button class="nav-tab active" onclick="switchTab('ev',this)">EV PICKS</button>
+  <button class="nav-tab" onclick="switchTab('props',this)">PLAYER PROPS</button>
+  <button class="nav-tab" onclick="switchTab('news',this)">INJURY &amp; NEWS</button>
 </div>
 
 <main>
 
-<!-- ═══════════ EV PICKS TAB ═══════════ -->
 <div class="tab-content active" id="tab-ev">
-
   <div class="setup">
-    <div class="setup-title">CONNECT YOUR ODDS API KEY</div>
-    <div class="setup-desc">Get a free key at <a href="https://the-odds-api.com" target="_blank">the-odds-api.com</a> — Sign up and copy your key. Saved in your browser only.</div>
+    <div class="setup-title">ODDS API KEY</div>
+    <div class="setup-desc">Get a free key at <a href="https://the-odds-api.com" target="_blank">the-odds-api.com</a>. Stored in your browser only.</div>
     <div class="flex">
-      <input type="password" id="key-input" placeholder="Paste your Odds API key..." style="flex:1;min-width:240px">
+      <input type="password" id="key-input" placeholder="Paste your Odds API key..." style="flex:1;min-width:220px">
       <button class="btn" onclick="saveKey()">SAVE KEY</button>
     </div>
     <div class="key-status" id="key-status"></div>
   </div>
-
+  <div class="ant-setup">
+    <div class="ant-setup-title">ANTHROPIC AI KEY</div>
+    <div class="setup-desc">Powers AI reasoning, injury analysis &amp; prop predictions. Get a key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>. Stored in your browser only.</div>
+    <div class="flex">
+      <input type="password" id="ant-key-input" placeholder="Paste your Anthropic API key..." style="flex:1;min-width:220px">
+      <button class="btn" onclick="saveAntKey()">SAVE KEY</button>
+    </div>
+    <div class="key-status" id="ant-key-status"></div>
+  </div>
   <div class="stats">
     <div class="stat">
       <div class="stat-label">BANKROLL</div>
-      <div class="flex" style="gap:6px;margin-top:4px">
-        <input type="number" id="bk-input" value="500" style="width:90px;padding:5px 8px;font-size:13px">
-        <button class="btn btn-ghost" style="padding:5px 10px" onclick="setBankroll()">SET</button>
+      <div class="flex" style="gap:6px;margin-top:5px">
+        <input type="number" id="bk-input" value="500" style="width:90px;padding:7px 10px;font-size:12px">
+        <button class="btn btn-ghost" style="padding:7px 12px" onclick="setBankroll()">SET</button>
       </div>
     </div>
     <div class="stat"><div class="stat-label">GAMES TODAY</div><div class="stat-val" id="s-games">—</div></div>
     <div class="stat"><div class="stat-label">+EV SPOTS</div><div class="stat-val g" id="s-ev">—</div></div>
     <div class="stat"><div class="stat-label">TOP EV/100</div><div class="stat-val g" id="s-top">—</div></div>
   </div>
-
   <div class="controls">
     <div class="tgroup">
       <button class="tog on" id="t-nba" onclick="setSport('NBA')">NBA</button>
@@ -316,734 +234,247 @@ footer{border-top:1px solid var(--border);padding:1.2rem 2rem;font-family:'DM Mo
     </div>
     <button class="btn" id="fetch-btn" onclick="fetchOdds()" style="margin-left:auto">FETCH TODAY'S GAMES</button>
   </div>
-
-  <div class="status-bar" id="status-bar">Add your API key above, then hit Fetch.</div>
+  <div class="status-bar" id="status-bar">Add your API keys above, then hit Fetch.</div>
   <div id="output"></div>
-
 </div>
 
-<!-- ═══════════ PLAYER PROPS TAB ═══════════ -->
 <div class="tab-content" id="tab-props">
-
   <div class="player-search-box">
     <div class="player-search-title">PLAYER PROP ANALYZER</div>
-    <div style="font-size:13px;color:var(--muted);margin-bottom:.9rem;line-height:1.6">
-      Enter a player name and stat category — AI will analyze their recent performance, matchup, and line to give you a data-driven Over/Under recommendation.
-    </div>
+    <div style="font-size:13px;color:var(--text3);margin-bottom:1rem;line-height:1.6;font-weight:300">Enter a player, stat, line, and opponent — AI delivers a data-driven Over/Under call with full context.</div>
     <div class="search-row">
       <input type="text" id="prop-player-input" placeholder="e.g. LeBron James" style="flex:1;min-width:180px">
-      <select class="sport-sel" id="prop-stat-select">
-        <optgroup label="NBA">
-          <option value="points">Points</option>
-          <option value="rebounds">Rebounds</option>
-          <option value="assists">Assists</option>
-          <option value="3-pointers made">3-Pointers Made</option>
-          <option value="points+rebounds+assists">PRA (Pts+Reb+Ast)</option>
-          <option value="steals">Steals</option>
-          <option value="blocks">Blocks</option>
-        </optgroup>
-        <optgroup label="MLB">
-          <option value="strikeouts">Strikeouts (Pitcher)</option>
-          <option value="hits">Hits</option>
-          <option value="total bases">Total Bases</option>
-          <option value="RBI">RBI</option>
-          <option value="home runs">Home Runs</option>
-          <option value="walks">Walks (Pitcher)</option>
-        </optgroup>
+      <select id="prop-stat-select">
+        <optgroup label="NBA"><option value="points">Points</option><option value="rebounds">Rebounds</option><option value="assists">Assists</option><option value="3-pointers made">3-Pointers Made</option><option value="points+rebounds+assists">PRA (Pts+Reb+Ast)</option><option value="steals">Steals</option><option value="blocks">Blocks</option></optgroup>
+        <optgroup label="MLB"><option value="strikeouts">Strikeouts (Pitcher)</option><option value="hits">Hits</option><option value="total bases">Total Bases</option><option value="RBI">RBI</option><option value="home runs">Home Runs</option><option value="walks">Walks (Pitcher)</option></optgroup>
       </select>
-      <input type="number" id="prop-line-input" placeholder="Line (e.g. 24.5)" step="0.5" style="width:130px">
-      <input type="text" id="prop-opponent-input" placeholder="Opponent (e.g. Celtics)" style="width:150px">
+      <input type="number" id="prop-line-input" placeholder="Line e.g. 24.5" step="0.5" style="width:130px">
+      <input type="text" id="prop-opponent-input" placeholder="Opponent e.g. Celtics" style="width:150px">
       <button class="btn" onclick="analyzeProp()">ANALYZE PROP</button>
     </div>
   </div>
-
   <div class="status-bar" id="props-status">Enter a player above and hit Analyze.</div>
   <div id="props-output"></div>
-
 </div>
 
-<!-- ═══════════ INJURY & NEWS TAB ═══════════ -->
 <div class="tab-content" id="tab-news">
-
-  <div style="display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center">
-    <div class="tgroup">
-      <button class="tog on" id="n-nba" onclick="setNewsSport('NBA')">NBA</button>
-      <button class="tog" id="n-mlb" onclick="setNewsSport('MLB')">MLB</button>
-      <button class="tog" id="n-both" onclick="setNewsSport('BOTH')">BOTH</button>
-    </div>
-    <div class="tgroup">
-      <button class="tog on" id="n-all" onclick="setNewsType('ALL')">ALL</button>
-      <button class="tog" id="n-inj" onclick="setNewsType('INJURIES')">INJURIES</button>
-      <button class="tog" id="n-news" onclick="setNewsType('NEWS')">NEWS</button>
-    </div>
+  <div style="display:flex;gap:10px;margin-bottom:1.8rem;flex-wrap:wrap;align-items:center">
+    <div class="tgroup"><button class="tog on" id="n-nba" onclick="setNewsSport('NBA')">NBA</button><button class="tog" id="n-mlb" onclick="setNewsSport('MLB')">MLB</button><button class="tog" id="n-both" onclick="setNewsSport('BOTH')">BOTH</button></div>
+    <div class="tgroup"><button class="tog on" id="n-all" onclick="setNewsType('ALL')">ALL</button><button class="tog" id="n-inj" onclick="setNewsType('INJURIES')">INJURIES</button><button class="tog" id="n-news" onclick="setNewsType('NEWS')">NEWS</button></div>
     <button class="btn" onclick="fetchNews()" style="margin-left:auto">FETCH LATEST</button>
   </div>
-
   <div class="status-bar" id="news-status">Hit Fetch Latest to pull today's injury reports and game news.</div>
   <div id="news-output"></div>
-
 </div>
 
 </main>
-
-<footer>ANT'S EV EDGE · FOR ENTERTAINMENT PURPOSES ONLY · BET RESPONSIBLY · 21+</footer>
+<footer>ANT'S EV EDGE &nbsp;·&nbsp; FOR ENTERTAINMENT PURPOSES ONLY &nbsp;·&nbsp; BET RESPONSIBLY &nbsp;·&nbsp; 21+</footer>
 
 <script>
-// ─── STATE ───────────────────────────────────────────────────────────────────
-var apiKey = localStorage.getItem('evApiKey') || '';
-var bankroll = parseFloat(localStorage.getItem('evBankroll') || '500');
-var sport = 'NBA';
-var bet = 'ML';
-var newsSport = 'NBA';
-var newsType = 'ALL';
-var currentPicks = [];
+var apiKey=localStorage.getItem('evApiKey')||'';
+var antKey=localStorage.getItem('evAntKey')||'';
+var bankroll=parseFloat(localStorage.getItem('evBankroll')||'500');
+var sport='NBA',bet='ML',newsSport='NBA',newsType='ALL';
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-window.onload = function() {
-  document.getElementById('bk-input').value = bankroll;
-  if (apiKey) {
-    document.getElementById('key-input').value = apiKey;
-    setKeyStatus('Key loaded — ready to fetch', true);
-  }
+window.onload=function(){
+  document.getElementById('bk-input').value=bankroll;
+  if(apiKey){document.getElementById('key-input').value=apiKey;setKS('Odds API key loaded.',true,'key-status');}
+  if(antKey){document.getElementById('ant-key-input').value=antKey;setKS('Anthropic key loaded — AI features ready.',true,'ant-key-status');}
 };
 
-// ─── TABS ─────────────────────────────────────────────────────────────────────
-function switchTab(name) {
-  document.querySelectorAll('.tab-content').forEach(function(el){ el.classList.remove('active'); });
-  document.querySelectorAll('.nav-tab').forEach(function(el){ el.classList.remove('active'); });
-  document.getElementById('tab-'+name).classList.add('active');
-  event.target.classList.add('active');
-}
+function switchTab(name,btn){document.querySelectorAll('.tab-content').forEach(function(el){el.classList.remove('active');});document.querySelectorAll('.nav-tab').forEach(function(el){el.classList.remove('active');});document.getElementById('tab-'+name).classList.add('active');btn.classList.add('active');}
+function saveKey(){var v=document.getElementById('key-input').value.trim();if(!v){setKS('Paste a key first.',false,'key-status');return;}apiKey=v;localStorage.setItem('evApiKey',v);setKS('Odds API key saved.',true,'key-status');}
+function saveAntKey(){var v=document.getElementById('ant-key-input').value.trim();if(!v){setKS('Paste a key first.',false,'ant-key-status');return;}antKey=v;localStorage.setItem('evAntKey',v);setKS('Anthropic key saved — AI features active.',true,'ant-key-status');}
+function setKS(msg,ok,id){var el=document.getElementById(id);el.textContent=(ok?'✓ ':'⚠ ')+msg;el.className='key-status '+(ok?'key-ok':'key-err');}
+function setBankroll(){bankroll=parseFloat(document.getElementById('bk-input').value)||500;localStorage.setItem('evBankroll',bankroll);setStatus('Bankroll set to $'+bankroll.toFixed(0));}
+function setSport(s){sport=s;['nba','mlb','both'].forEach(function(x){document.getElementById('t-'+x).className='tog'+(x.toUpperCase()===s||(s==='BOTH'&&x==='both')?' on':'');});}
+function setBet(b){bet=b;document.getElementById('t-ml').className='tog'+(b==='ML'?' on':'');document.getElementById('t-sp').className='tog'+(b==='SP'?' on':'');}
+function setNewsSport(s){newsSport=s;['nba','mlb','both'].forEach(function(x){document.getElementById('n-'+x).className='tog'+(x.toUpperCase()===s||(s==='BOTH'&&x==='both')?' on':'');});}
+function setNewsType(t){newsType=t;var map={all:'ALL',inj:'INJURIES',news:'NEWS'};['all','inj','news'].forEach(function(x){document.getElementById('n-'+x).className='tog'+(map[x]===t?' on':'');});}
+function setStatus(msg){document.getElementById('status-bar').textContent=msg;}
+function toProb(o){o=parseFloat(o);return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100);}
+function noVig(p1,p2){var t=p1+p2;return[p1/t,p2/t];}
+function calcEV(prob,o){o=parseFloat(o);var pay=o>0?o/100:100/Math.abs(o);return prob*pay-(1-prob);}
+function halfKelly(prob,o){o=parseFloat(o);var b=o>0?o/100:100/Math.abs(o);return Math.max(0,(b*prob-(1-prob))/b)*0.5;}
+function fmt(o){return(o>0?'+':'')+o;}
+function antHeaders(){return{'Content-Type':'application/json','x-api-key':antKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};}
 
-// ─── KEY / BANKROLL ───────────────────────────────────────────────────────────
-function saveKey() {
-  var v = document.getElementById('key-input').value.trim();
-  if (!v) { setKeyStatus('Please paste a key first', false); return; }
-  apiKey = v;
-  localStorage.setItem('evApiKey', v);
-  setKeyStatus('Key saved. You are good to go.', true);
-}
-function setKeyStatus(msg, ok) {
-  var el = document.getElementById('key-status');
-  el.textContent = (ok ? '✓ ' : '⚠ ') + msg;
-  el.className = 'key-status ' + (ok ? 'key-ok' : 'key-err');
-}
-function setBankroll() {
-  bankroll = parseFloat(document.getElementById('bk-input').value) || 500;
-  localStorage.setItem('evBankroll', bankroll);
-  setStatus('Bankroll set to $' + bankroll.toFixed(0));
-}
-function setSport(s) {
-  sport = s;
-  ['nba','mlb','both'].forEach(function(x){
-    document.getElementById('t-'+x).className = 'tog' + (x.toUpperCase()===s||(s==='BOTH'&&x==='both')?' on':'');
-  });
-}
-function setBet(b) {
-  bet = b;
-  document.getElementById('t-ml').className = 'tog' + (b==='ML'?' on':'');
-  document.getElementById('t-sp').className = 'tog' + (b==='SP'?' on':'');
-}
-function setNewsSport(s) {
-  newsSport = s;
-  ['nba','mlb','both'].forEach(function(x){
-    document.getElementById('n-'+x).className = 'tog' + (x.toUpperCase()===s||(s==='BOTH'&&x==='both')?' on':'');
-  });
-}
-function setNewsType(t) {
-  newsType = t;
-  ['all','inj','news'].forEach(function(x){
-    var map = {all:'ALL',inj:'INJURIES',news:'NEWS'};
-    document.getElementById('n-'+x).className = 'tog' + (map[x]===t?' on':'');
-  });
-}
-function setStatus(msg) { document.getElementById('status-bar').textContent = msg; }
+var SPORTS={NBA:['basketball_nba'],MLB:['baseball_mlb'],BOTH:['basketball_nba','baseball_mlb']};
 
-// ─── MATH ─────────────────────────────────────────────────────────────────────
-function toProb(o) { o=parseFloat(o); return o>0?100/(o+100):Math.abs(o)/(Math.abs(o)+100); }
-function noVig(p1,p2) { var t=p1+p2; return [p1/t,p2/t]; }
-function calcEV(prob,o) { o=parseFloat(o); var pay=o>0?o/100:100/Math.abs(o); return prob*pay-(1-prob); }
-function halfKelly(prob,o) { o=parseFloat(o); var b=o>0?o/100:100/Math.abs(o); return Math.max(0,(b*prob-(1-prob))/b)*0.5; }
-function fmt(o) { return (o>0?'+':'')+o; }
-
-// ─── FETCH ODDS ───────────────────────────────────────────────────────────────
-var SPORTS = { NBA:['basketball_nba'], MLB:['baseball_mlb'], BOTH:['basketball_nba','baseball_mlb'] };
-
-async function fetchOdds() {
-  if (!apiKey) { setStatus('No API key — save one above first.'); return; }
-  var btn = document.getElementById('fetch-btn');
-  btn.disabled = true; btn.textContent = 'FETCHING...';
-  setStatus('Pulling live odds...');
-  document.getElementById('output').innerHTML = '';
-  document.getElementById('s-games').textContent = '—';
-  document.getElementById('s-ev').textContent = '—';
-  document.getElementById('s-top').textContent = '—';
-
-  var market = bet === 'ML' ? 'h2h' : 'spreads';
-  var keys = SPORTS[sport];
-  var games = [];
-
-  for (var i=0; i<keys.length; i++) {
-    var sk = keys[i];
-    var url = 'https://api.the-odds-api.com/v4/sports/'+sk+'/odds/?apiKey='+apiKey+'&regions=us&markets='+market+'&oddsFormat=american';
-    try {
-      var r = await fetch(url);
-      var text = await r.text();
-      if (!r.ok) {
-        var msg = r.status;
-        try { msg = JSON.parse(text).message || msg; } catch(e){}
-        setStatus('API error ' + r.status + ': ' + msg);
-        btn.disabled = false; btn.textContent = "FETCH TODAY'S GAMES";
-        return;
-      }
-      var data = JSON.parse(text);
-      for (var j=0; j<data.length; j++) {
-        data[j]._sport = sk.includes('nba') ? 'NBA' : 'MLB';
-        games.push(data[j]);
-      }
-    } catch(e) {
-      setStatus('Network error: ' + e.message);
-      btn.disabled = false; btn.textContent = "FETCH TODAY'S GAMES";
-      return;
-    }
+async function fetchOdds(){
+  if(!apiKey){setStatus('No Odds API key — save one above first.');return;}
+  var btn=document.getElementById('fetch-btn');btn.disabled=true;btn.textContent='FETCHING...';
+  setStatus('Pulling live odds...');document.getElementById('output').innerHTML='';
+  ['s-games','s-ev','s-top'].forEach(function(id){document.getElementById(id).textContent='—';});
+  var market=bet==='ML'?'h2h':'spreads',keys=SPORTS[sport],games=[];
+  for(var i=0;i<keys.length;i++){
+    var sk=keys[i],url='https://api.the-odds-api.com/v4/sports/'+sk+'/odds/?apiKey='+apiKey+'&regions=us&markets='+market+'&oddsFormat=american';
+    try{var r=await fetch(url),text=await r.text();if(!r.ok){var msg=r.status;try{msg=JSON.parse(text).message||msg;}catch(e){}setStatus('API error '+r.status+': '+msg);btn.disabled=false;btn.textContent="FETCH TODAY'S GAMES";return;}var data=JSON.parse(text);for(var j=0;j<data.length;j++){data[j]._sport=sk.includes('nba')?'NBA':'MLB';games.push(data[j]);}}
+    catch(e){setStatus('Network error: '+e.message);btn.disabled=false;btn.textContent="FETCH TODAY'S GAMES";return;}
   }
-
-  btn.disabled = false; btn.textContent = 'REFRESH';
-
-  if (!games.length) {
-    document.getElementById('output').innerHTML = '<div class="empty"><div class="empty-t">NO GAMES RIGHT NOW</div><p>No '+sport+' games with active odds. Check back closer to game time.</p></div>';
-    setStatus('No games found.');
-    return;
+  btn.disabled=false;btn.textContent='REFRESH';
+  if(!games.length){document.getElementById('output').innerHTML='<div class="empty"><div class="empty-t">NO GAMES RIGHT NOW</div><p>No '+sport+' games with active odds.</p></div>';setStatus('No games found.');return;}
+  var picks=[];
+  for(var i=0;i<games.length;i++){
+    var g=games[i],fd=null;
+    for(var b2=0;b2<(g.bookmakers||[]).length;b2++){if(g.bookmakers[b2].key==='fanduel'){fd=g.bookmakers[b2];break;}}
+    if(!fd)fd=(g.bookmakers||[])[0];if(!fd)continue;
+    var mkt=(fd.markets||[])[0];if(!mkt||mkt.outcomes.length<2)continue;
+    var o1=mkt.outcomes[0],o2=mkt.outcomes[1],probs=noVig(toProb(o1.price),toProb(o2.price));
+    var ev1=calcEV(probs[0],o1.price),ev2=calcEV(probs[1],o2.price);
+    var best=ev1>=ev2?{team:o1.name,odds:o1.price,prob:probs[0],EV:ev1}:{team:o2.name,odds:o2.price,prob:probs[1],EV:ev2};
+    var k=halfKelly(best.prob,best.odds);picks.push({g:g,best:best,k:k,betAmt:bankroll*k,betType:mkt.key==='h2h'?'Moneyline':'Spread',sport:g._sport});
   }
-
-  var picks = [];
-  for (var i=0; i<games.length; i++) {
-    var g = games[i];
-    var fd = null;
-    for (var b2=0; b2<(g.bookmakers||[]).length; b2++) {
-      if (g.bookmakers[b2].key === 'fanduel') { fd = g.bookmakers[b2]; break; }
-    }
-    if (!fd) fd = (g.bookmakers||[])[0];
-    if (!fd) continue;
-    var mkt = (fd.markets||[])[0];
-    if (!mkt || mkt.outcomes.length < 2) continue;
-    var o1 = mkt.outcomes[0], o2 = mkt.outcomes[1];
-    var probs = noVig(toProb(o1.price), toProb(o2.price));
-    var ev1 = calcEV(probs[0], o1.price);
-    var ev2 = calcEV(probs[1], o2.price);
-    var best = ev1 >= ev2
-      ? {team:o1.name, odds:o1.price, prob:probs[0], EV:ev1}
-      : {team:o2.name, odds:o2.price, prob:probs[1], EV:ev2};
-    var k = halfKelly(best.prob, best.odds);
-    picks.push({ g:g, best:best, k:k, betAmt:bankroll*k, betType:mkt.key==='h2h'?'Moneyline':'Spread', sport:g._sport });
+  picks.sort(function(a,b){return b.best.EV-a.best.EV;});
+  var posCount=picks.filter(function(p){return p.best.EV>0;}).length;
+  document.getElementById('s-games').textContent=picks.length;document.getElementById('s-ev').textContent=posCount;document.getElementById('s-top').textContent=picks.length?'$'+(picks[0].best.EV*100).toFixed(2):'—';
+  var top5=picks.slice(0,5);
+  function vc(EV){return EV>0.04?'strong':EV>0?'lean':'skip';}function vl(EV){return EV>0.04?'STRONG BET':EV>0?'LEAN':'SKIP';}
+  var html='<div class="section-title">TODAY\'S TOP PICKS</div><div class="picks">';
+  for(var i=0;i<top5.length;i++){
+    var p=top5[i],cls=vc(p.best.EV),evColor=p.best.EV>0?'g':'r',rankCls=i===0?' rank-1':'';
+    html+='<div class="pick '+cls+rankCls+'" style="animation-delay:'+(i*.08)+'s"><div class="pick-top"><div class="pick-num">0'+(i+1)+'</div>';
+    html+='<div class="pick-info"><div class="pick-game">'+p.g.away_team+' @ '+p.g.home_team+'</div><div class="pick-sub">'+p.sport+' &middot; '+p.betType+' &middot; '+p.best.team+' '+fmt(p.best.odds)+'</div></div>';
+    html+='<div class="pick-nums"><div class="num-block"><div class="num-label">EV/100</div><div class="num-val '+evColor+'">$'+(p.best.EV*100).toFixed(2)+'</div></div>';
+    html+='<div class="num-block"><div class="num-label">WIN PROB</div><div class="num-val b">'+(p.best.prob*100).toFixed(1)+'%</div></div>';
+    html+='<div class="num-block"><div class="num-label">BET SIZE</div><div class="num-val g">$'+p.betAmt.toFixed(0)+'</div></div>';
+    html+='<div class="tag '+cls+'">'+vl(p.best.EV)+'</div></div></div>';
+    html+='<div class="analysis-tabs"><button class="atab on" onclick="showATab(this,\'reason-'+i+'\')">AI REASONING</button><button class="atab" onclick="showATab(this,\'injuries-'+i+'\')">INJURIES</button><button class="atab" onclick="showATab(this,\'gamenews-'+i+'\')">GAME NEWS</button></div>';
+    html+='<div class="analysis-panel on" id="reason-'+i+'"><div class="loading-inline"><div class="spin"></div>Loading AI analysis...</div></div>';
+    html+='<div class="analysis-panel" id="injuries-'+i+'"><div class="loading-inline"><div class="spin"></div>Loading injury report...</div></div>';
+    html+='<div class="analysis-panel" id="gamenews-'+i+'"><div class="loading-inline"><div class="spin"></div>Loading game news...</div></div></div>';
   }
-
-  picks.sort(function(a,b){ return b.best.EV - a.best.EV; });
-  currentPicks = picks;
-
-  var posCount = picks.filter(function(p){ return p.best.EV > 0; }).length;
-  document.getElementById('s-games').textContent = picks.length;
-  document.getElementById('s-ev').textContent = posCount;
-  document.getElementById('s-top').textContent = picks.length ? '$'+(picks[0].best.EV*100).toFixed(2) : '—';
-
-  var top5 = picks.slice(0,5);
-  function vc(EV) { return EV > 0.04 ? 'strong' : EV > 0 ? 'lean' : 'skip'; }
-  function vl(EV) { return EV > 0.04 ? 'STRONG BET' : EV > 0 ? 'LEAN' : 'SKIP'; }
-
-  var html = '<div class="section-title">TODAY\'S TOP PICKS</div><div class="picks">';
-  for (var i=0; i<top5.length; i++) {
-    var p = top5[i];
-    var cls = vc(p.best.EV);
-    var evColor = p.best.EV > 0 ? 'g' : 'r';
-    html += '<div class="pick '+cls+'" style="animation-delay:'+(i*.07)+'s">';
-    html += '<div class="pick-top">';
-    html += '<div class="pick-num">0'+(i+1)+'</div>';
-    html += '<div class="pick-info"><div class="pick-game">'+p.g.away_team+' @ '+p.g.home_team+'</div>';
-    html += '<div class="pick-sub">'+p.sport+' &middot; '+p.betType+' &middot; BET '+p.best.team+' '+fmt(p.best.odds)+'</div></div>';
-    html += '<div class="pick-nums">';
-    html += '<div class="num-block"><div class="num-label">EV/100</div><div class="num-val '+evColor+'">$'+(p.best.EV*100).toFixed(2)+'</div></div>';
-    html += '<div class="num-block"><div class="num-label">WIN PROB</div><div class="num-val b">'+(p.best.prob*100).toFixed(1)+'%</div></div>';
-    html += '<div class="num-block"><div class="num-label">BET SIZE</div><div class="num-val g">$'+p.betAmt.toFixed(0)+'</div></div>';
-    html += '<div class="tag '+cls+'">'+vl(p.best.EV)+'</div>';
-    html += '</div></div>';
-    // Analysis tabs
-    html += '<div class="analysis-tabs">';
-    html += '<button class="atab on" onclick="showATab(this,\'reason-'+i+'\')">AI REASONING</button>';
-    html += '<button class="atab" onclick="showATab(this,\'injuries-'+i+'\')">INJURIES</button>';
-    html += '<button class="atab" onclick="showATab(this,\'gamenews-'+i+'\')">GAME NEWS</button>';
-    html += '</div>';
-    html += '<div class="analysis-panel on" id="reason-'+i+'"><div class="loading-inline"><div class="spin"></div>Loading AI analysis...</div></div>';
-    html += '<div class="analysis-panel" id="injuries-'+i+'"><div class="loading-inline"><div class="spin"></div>Loading injury report...</div></div>';
-    html += '<div class="analysis-panel" id="gamenews-'+i+'"><div class="loading-inline"><div class="spin"></div>Loading game news...</div></div>';
-    html += '</div>';
-  }
-  html += '</div>';
-  document.getElementById('output').innerHTML = html;
+  html+='</div>';document.getElementById('output').innerHTML=html;
   setStatus('Found '+picks.length+' games · '+posCount+' +EV spots · Top 5 shown · Loading AI analysis...');
-
-  // Fire all analyses
-  for (var i=0; i<top5.length; i++) {
-    (function(idx, pick) {
-      getAIReasoning(idx, pick);
-      getInjuryReport(idx, pick);
-      getGameNews(idx, pick);
-    })(i, top5[i]);
-  }
+  for(var i=0;i<top5.length;i++){(function(idx,pick){getAIReasoning(idx,pick);getInjuryReport(idx,pick);getGameNews(idx,pick);})(i,top5[i]);}
 }
 
-function showATab(btn, panelId) {
-  var card = btn.closest('.pick');
-  card.querySelectorAll('.atab').forEach(function(b){ b.classList.remove('on'); });
-  card.querySelectorAll('.analysis-panel').forEach(function(p){ p.classList.remove('on'); });
-  btn.classList.add('on');
-  document.getElementById(panelId).classList.add('on');
+function showATab(btn,panelId){var card=btn.closest('.pick');card.querySelectorAll('.atab').forEach(function(b){b.classList.remove('on');});card.querySelectorAll('.analysis-panel').forEach(function(p){p.classList.remove('on');});btn.classList.add('on');document.getElementById(panelId).classList.add('on');}
+
+async function getAIReasoning(idx,pick){
+  var el=document.getElementById('reason-'+idx);
+  if(!antKey){el.innerHTML='<div style="color:var(--text3);font-family:Space Mono,monospace;font-size:11px">Add your Anthropic key above to enable AI analysis.</div>';return;}
+  var EV=pick.best.EV,prob=pick.best.prob;
+  var prompt='Sharp sports bettor. Analyze:\nGame: '+pick.g.away_team+' @ '+pick.g.home_team+'\nSport: '+pick.sport+'\nBet: '+pick.best.team+' '+pick.betType+' at '+fmt(pick.best.odds)+'\nTrue Prob: '+(prob*100).toFixed(1)+'%\nEV/100: $'+(EV*100).toFixed(2)+'\nKelly bet: $'+pick.betAmt.toFixed(0)+' of $'+bankroll+'\nReturn JSON only: {"verdict":"TAKE IT or FADE IT or NEUTRAL","confidence":50,"summary":"2-3 sentences.","keyFactors":["f1","f2","f3"],"redFlags":["r1"],"finalLine":"One sentence."}';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:antHeaders(),body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:'Sharp betting analyst. Return valid JSON only.',messages:[{role:'user',content:prompt}]})});
+    var data=await resp.json();
+    if(!resp.ok){el.innerHTML='<div style="color:var(--text3);font-size:12px">AI error: '+(data.error&&data.error.message||resp.status)+'</div>';return;}
+    var obj=JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
+    var vClass=obj.verdict==='TAKE IT'?'take':obj.verdict==='FADE IT'?'fade':'neutral';
+    var vIcon=obj.verdict==='TAKE IT'?'▲':obj.verdict==='FADE IT'?'▼':'—';
+    var c=obj.confidence||50,cColor=c>65?'var(--green)':c>40?'var(--gold)':'var(--red)';
+    var h='<div class="reasoning-body"><div class="verdict-badge '+vClass+'">'+vIcon+' '+obj.verdict+'</div>';
+    h+='<div class="label-sm">CONFIDENCE</div><div class="conf-bar" style="margin-bottom:.9rem"><div class="conf-fill" style="width:'+c+'%;background:'+cColor+'"></div></div>';
+    h+='<p style="margin-bottom:.8rem;font-weight:300">'+obj.summary+'</p>';
+    if(obj.keyFactors&&obj.keyFactors.length){h+='<div class="label-sm" style="margin-bottom:.4rem">KEY FACTORS</div>';obj.keyFactors.forEach(function(f){h+='<div class="factor-item">'+f+'</div>';});h+='<div style="margin-bottom:.6rem"></div>';}
+    if(obj.redFlags&&obj.redFlags.length){h+='<div class="label-sm" style="color:var(--red);margin-bottom:.4rem">⚠ RED FLAGS</div>';obj.redFlags.forEach(function(f){h+='<div class="flag-item">'+f+'</div>';});h+='<div style="margin-bottom:.6rem"></div>';}
+    h+='<div class="final-line">'+obj.finalLine+'</div></div>';el.innerHTML=h;
+  }catch(e){el.innerHTML='<div style="color:var(--text3);font-size:12px">AI analysis unavailable: '+e.message+'</div>';}
 }
 
-// ─── AI REASONING ─────────────────────────────────────────────────────────────
-async function getAIReasoning(idx, pick) {
-  var el = document.getElementById('reason-'+idx);
-  var EV = pick.best.EV;
-  var prob = pick.best.prob;
-  var evPer100 = (EV * 100).toFixed(2);
-  var prompt = `You are a sharp sports bettor and analyst. Analyze this bet and give a concise, data-driven recommendation.
+async function getInjuryReport(idx,pick){
+  var el=document.getElementById('injuries-'+idx);
+  if(!antKey){el.innerHTML='<div style="color:var(--text3);font-family:Space Mono,monospace;font-size:11px">Add your Anthropic key to enable injury reports.</div>';return;}
+  var prompt='Injury analyst. Game: '+pick.g.away_team+' @ '+pick.g.home_team+' ('+pick.sport+').\nReturn JSON only: {"away":[{"player":"Name","status":"Out or Questionable or Probable or Day-to-Day","injury":"desc","bettingNote":"impact"}],"home":[...],"summary":"One sentence."}';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:antHeaders(),body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,system:'Sports injury analyst. Return valid JSON only.',messages:[{role:'user',content:prompt}]})});
+    var data=await resp.json();if(!resp.ok){el.innerHTML='<div style="color:var(--text3);font-size:12px">Injury data error.</div>';return;}
+    var obj=JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
+    function rP(players,name){if(!players||!players.length)return'<div style="font-size:12px;color:var(--text3);padding:.4rem 0">No significant injuries for '+name+'</div>';return players.map(function(p){var sc=p.status==='Out'?'out':p.status==='Questionable'||p.status==='Day-to-Day'?'questionable':'probable';return'<div class="injury-item '+sc+'"><div class="injury-name">'+p.player+'</div><div class="injury-status-badge '+sc+'">'+p.status+'</div><div class="injury-detail">'+p.injury+'</div>'+(p.bettingNote?'<div class="bet-note">→ '+p.bettingNote+'</div>':'')+'</div>';}).join('');}
+    var h='<div class="injury-list"><div class="team-divider">'+pick.g.away_team.toUpperCase()+' (AWAY)</div>'+rP(obj.away,pick.g.away_team)+'<div class="team-divider">'+pick.g.home_team.toUpperCase()+' (HOME)</div>'+rP(obj.home,pick.g.home_team);
+    if(obj.summary)h+='<div class="context-box" style="border-left:2px solid var(--blue)">'+obj.summary+'</div>';
+    h+='</div><div class="disclaimer">⚠ AI-estimated. Verify at official sources before betting.</div>';el.innerHTML=h;
+  }catch(e){el.innerHTML='<div style="color:var(--text3);font-size:12px">Injury data unavailable.</div>';}
+}
 
-Game: ${pick.g.away_team} @ ${pick.g.home_team}
-Sport: ${pick.sport}
-Bet: ${pick.best.team} ${pick.betType} at ${fmt(pick.best.odds)}
-True Win Probability (no-vig): ${(prob*100).toFixed(1)}%
-Expected Value per $100: $${evPer100}
-Suggested Bet Size (half-Kelly): $${pick.betAmt.toFixed(0)} of $${bankroll} bankroll
+async function getGameNews(idx,pick){
+  var el=document.getElementById('gamenews-'+idx);
+  if(!antKey){el.innerHTML='<div style="color:var(--text3);font-family:Space Mono,monospace;font-size:11px">Add your Anthropic key to enable game news.</div>';return;}
+  var prompt='Sports news analyst. Game: '+pick.g.away_team+' @ '+pick.g.home_team+' ('+pick.sport+').\nReturn JSON only: {"headlines":[{"headline":"str","type":"injury or lineup or form or matchup","team":"team or both","bettingImpact":"Bullish or Bearish or Neutral","detail":"1-2 sentences"}],"bettingContext":"2-3 sentences."}\n3-5 headlines. Return valid JSON only.';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:antHeaders(),body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,system:'Sports news analyst. Return valid JSON only.',messages:[{role:'user',content:prompt}]})});
+    var data=await resp.json();if(!resp.ok){el.innerHTML='<div style="color:var(--text3);font-size:12px">News error.</div>';return;}
+    var obj=JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
+    var tC={injury:'var(--gold)',lineup:'var(--blue)',form:'var(--green)',matchup:'var(--text)',weather:'var(--text3)'};
+    var iC={Bullish:'var(--green)',Bearish:'var(--red)',Neutral:'var(--text3)'};
+    var h='<div class="news-list">';
+    (obj.headlines||[]).forEach(function(hn){var tc=tC[hn.type]||'var(--blue)',ic=iC[hn.bettingImpact]||'var(--text3)';h+='<div class="news-item"><div style="display:flex;justify-content:space-between;gap:8px"><div class="news-headline">'+hn.headline+'</div><span style="font-family:\'Bebas Neue\',sans-serif;font-size:.75rem;letter-spacing:.1em;color:'+ic+';white-space:nowrap">'+hn.bettingImpact+'</span></div><div class="news-meta"><span style="color:'+tc+'">'+hn.type.toUpperCase()+'</span> · '+hn.team+'</div>'+(hn.detail?'<div class="news-impact">'+hn.detail+'</div>':'')+'</div>';});
+    h+='</div>'+(obj.bettingContext?'<div class="context-box">'+obj.bettingContext+'</div>':'');
+    h+='<div class="disclaimer">⚠ AI-generated. Verify with official sources before betting.</div>';el.innerHTML=h;
+  }catch(e){el.innerHTML='<div style="color:var(--text3);font-size:12px">Game news unavailable.</div>';}
+}
 
-Give your response in this exact JSON format:
-{
-  "verdict": "TAKE IT" or "FADE IT" or "NEUTRAL",
-  "confidence": 1-100 integer,
-  "summary": "2-3 sentence plain English explanation of why to take or fade. Reference the EV, odds, and what the market might be mispricing.",
-  "keyFactors": ["factor 1", "factor 2", "factor 3"],
-  "redFlags": ["risk 1"] or [],
-  "finalLine": "One punchy closing sentence — the bottom line."
-}`;
+async function analyzeProp(){
+  var player=document.getElementById('prop-player-input').value.trim();
+  var stat=document.getElementById('prop-stat-select').value;
+  var line=parseFloat(document.getElementById('prop-line-input').value);
+  var opponent=document.getElementById('prop-opponent-input').value.trim();
+  var sEl=document.getElementById('props-status'),oEl=document.getElementById('props-output');
+  if(!player){sEl.textContent='Enter a player name first.';return;}
+  if(!line||isNaN(line)){sEl.textContent='Enter the prop line (e.g. 24.5).';return;}
+  if(!antKey){sEl.textContent='Add your Anthropic key on the EV Picks tab to use AI analysis.';return;}
+  sEl.textContent='Analyzing '+player+' '+stat+'...';
+  oEl.innerHTML='<div class="loading-inline" style="padding:2rem"><div class="spin"></div>Running prop analysis...</div>';
+  var prompt='Elite prop analyst.\nPlayer: '+player+' | Stat: '+stat+' | Line: '+line+' | Opponent: '+(opponent||'unknown')+'\nReturn JSON only: {"playerName":"'+player+'","statType":"'+stat+'","line":'+line+',"opponent":"'+(opponent||'TBD')+'","recommendation":"OVER or UNDER or PASS","confidence":50,"predictedValue":0,"recentForm":{"last5Avg":0,"last10Avg":0,"seasonAvg":0,"hitRate":"X/10"},"matchupFactors":[{"factor":"name","value":"val","impact":"positive or negative or neutral"}],"keyInsights":["i1","i2","i3"],"riskFactors":["r1"],"summary":"2-3 sentences.","confidence_reasoning":"1 sentence."}\nBe realistic. Return valid JSON only.';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:antHeaders(),body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1100,system:'Elite sports prop analyst. Return valid JSON only.',messages:[{role:'user',content:prompt}]})});
+    var data=await resp.json();
+    if(!resp.ok){oEl.innerHTML='<div class="empty"><div class="empty-t">API ERROR</div><p>'+(data.error&&data.error.message||resp.status)+'</p></div>';sEl.textContent='API error.';return;}
+    var obj=JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
+    var rC=obj.recommendation==='OVER'?'over':obj.recommendation==='UNDER'?'under':'neutral-prop';
+    var tC=obj.recommendation==='OVER'?'over-tag':obj.recommendation==='UNDER'?'under-tag':'neutral-tag';
+    var pC=obj.predictedValue>obj.line?'above':'below';
+    var c=obj.confidence||50,cColor=c>65?'var(--green)':c>40?'var(--gold)':'var(--red)';
+    var h='<div class="prop-card '+rC+'"><div class="prop-header"><div><div class="prop-player">'+obj.playerName+'</div><div class="prop-game-info">vs. '+obj.opponent+' · '+obj.statType.toUpperCase()+'</div></div>';
+    h+='<div class="prop-line-info"><div class="prop-stat-type">'+obj.statType.toUpperCase()+'</div><div><div class="label-sm">LINE</div><div class="prop-line">'+obj.line+'</div></div><div><div class="label-sm">PROJECTED</div><div class="prop-line '+pC+'" style="font-size:20px">'+obj.predictedValue+'</div></div><div class="prop-tag '+tC+'">'+obj.recommendation+'</div></div></div>';
+    h+='<div class="prop-body"><div class="prop-stats-box"><div class="prop-stats-title">RECENT FORM</div>';
+    if(obj.recentForm){var rf=obj.recentForm;h+='<div class="prop-stat-row"><span class="prop-stat-label">Last 5 Avg</span><span class="prop-stat-val '+(rf.last5Avg>obj.line?'above':'below')+'">'+rf.last5Avg+'</span></div><div class="prop-stat-row"><span class="prop-stat-label">Last 10 Avg</span><span class="prop-stat-val '+(rf.last10Avg>obj.line?'above':'below')+'">'+rf.last10Avg+'</span></div><div class="prop-stat-row"><span class="prop-stat-label">Season Avg</span><span class="prop-stat-val '+(rf.seasonAvg>obj.line?'above':'below')+'">'+rf.seasonAvg+'</span></div><div class="prop-stat-row"><span class="prop-stat-label">Hit Rate</span><span class="prop-stat-val b">'+rf.hitRate+'</span></div>';}
+    h+='</div><div class="prop-stats-box"><div class="prop-stats-title">MATCHUP FACTORS</div>';
+    (obj.matchupFactors||[]).forEach(function(m){var mc=m.impact==='positive'?'above':m.impact==='negative'?'below':'';h+='<div class="prop-stat-row"><span class="prop-stat-label" style="font-size:11px">'+m.factor+'</span><span class="prop-stat-val '+mc+'" style="font-size:11px;text-align:right;max-width:120px">'+m.value+'</span></div>';});
+    h+='</div><div style="grid-column:1/-1"><div class="label-sm">CONFIDENCE: '+c+'%</div><div class="conf-bar"><div class="conf-fill" style="width:'+c+'%;background:'+cColor+'"></div></div><div style="font-size:11px;color:var(--text3);margin-top:.4rem;font-weight:300">'+obj.confidence_reasoning+'</div></div>';
+    h+='<div class="prop-reasoning"><div class="label-sm" style="margin-bottom:.4rem">KEY INSIGHTS</div>';
+    (obj.keyInsights||[]).forEach(function(ins){h+='<div class="factor-item">'+ins+'</div>';});
+    if(obj.riskFactors&&obj.riskFactors.length){h+='<div class="label-sm" style="color:var(--red);margin:.7rem 0 .4rem">⚠ RISK FACTORS</div>';obj.riskFactors.forEach(function(r){h+='<div class="flag-item">'+r+'</div>';});}
+    h+='<div class="context-box" style="margin-top:.8rem">'+obj.summary+'</div></div></div>';
+    h+='<div class="disclaimer" style="padding:.6rem 1.4rem">⚠ AI-powered analysis. Verify stats and injury status before betting. Entertainment only.</div></div>';
+    oEl.innerHTML=h;sEl.textContent='Analysis complete — '+player+' '+stat+' → '+obj.recommendation;
+  }catch(e){oEl.innerHTML='<div class="empty"><div class="empty-t">ANALYSIS FAILED</div><p>'+e.message+'</p></div>';sEl.textContent='Error during analysis.';}
+}
 
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: 'You are a sharp sports betting analyst. Always respond with valid JSON only, no markdown, no backticks.',
-        messages: [{ role: 'user', content: prompt }]
-      })
+async function fetchNews(){
+  var sEl=document.getElementById('news-status'),oEl=document.getElementById('news-output');
+  if(!antKey){sEl.textContent='Add your Anthropic key on the EV Picks tab to enable news.';return;}
+  sEl.textContent='Fetching latest injury reports and news...';
+  oEl.innerHTML='<div class="loading-inline" style="padding:2rem"><div class="spin"></div>Loading...</div>';
+  var sportStr=newsSport==='BOTH'?'NBA and MLB':newsSport;
+  var typeStr=newsType==='ALL'?'injuries and game news':newsType==='INJURIES'?'injury reports only':'game news only';
+  var prompt='Sports news aggregator. Generate today\'s '+typeStr+' for '+sportStr+'.\nReturn JSON only: {"items":[{"sport":"NBA or MLB","type":"injury or news","headline":"str","player":"name or null","team":"team","status":"Out or Questionable or Probable or null","detail":"2-3 sentences","bettingImpact":"High or Medium or Low","impactDirection":"Bullish or Bearish or Neutral"}]}\n8-12 realistic items. Return valid JSON only.';
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:antHeaders(),body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,system:'Sports news aggregator. Return valid JSON only.',messages:[{role:'user',content:prompt}]})});
+    var data=await resp.json();
+    if(!resp.ok){oEl.innerHTML='<div class="empty"><div class="empty-t">FETCH FAILED</div><p>'+(data.error&&data.error.message||resp.status)+'</p></div>';sEl.textContent='Error.';return;}
+    var obj=JSON.parse(data.content[0].text.replace(/```json|```/g,'').trim());
+    var items=obj.items||[];
+    if(newsType!=='ALL')items=items.filter(function(i){return newsType==='INJURIES'?i.type==='injury':i.type==='news';});
+    if(newsSport!=='BOTH')items=items.filter(function(i){return i.sport===newsSport;});
+    if(!items.length){oEl.innerHTML='<div class="empty"><div class="empty-t">NO ITEMS</div><p>Try changing sport or type filters.</p></div>';sEl.textContent='No items matched.';return;}
+    var iColors={High:'var(--red)',Medium:'var(--gold)',Low:'var(--text3)'};
+    var dColors={Bullish:'var(--green)',Bearish:'var(--red)',Neutral:'var(--text3)'};
+    var sCls={Out:'out',Questionable:'questionable',Probable:'probable'};
+    var h='<div class="news-feed">';
+    items.forEach(function(item,i){
+      var bCls=item.type==='injury'?'injury':item.sport.toLowerCase();
+      var ic=iColors[item.bettingImpact]||'var(--text3)',dc=dColors[item.impactDirection]||'var(--text3)';
+      h+='<div class="news-card" style="animation-delay:'+(i*.04)+'s"><span class="news-sport-badge '+bCls+'">'+( item.type==='injury'?'🩹 INJURY':item.sport)+'</span><div><div class="news-card-headline">'+item.headline+'</div><div class="news-card-meta">'+item.team;
+      if(item.status){var sc=sCls[item.status]||'';h+=' · <span style="font-family:\'Bebas Neue\',sans-serif;font-size:.75rem;letter-spacing:.1em;color:'+(sc==='out'?'var(--red)':sc==='questionable'?'var(--gold)':'var(--green)')+'">'+item.status+'</span>';}
+      h+=' · Impact: <span style="color:'+ic+'">'+item.bettingImpact+'</span> · <span style="color:'+dc+'">'+item.impactDirection+'</span></div>';
+      if(item.detail)h+='<div class="news-card-impact">'+item.detail+'</div>';
+      h+='</div></div>';
     });
-    var data = await resp.json();
-    var raw = data.content && data.content[0] ? data.content[0].text : '';
-    var clean = raw.replace(/```json|```/g,'').trim();
-    var obj = JSON.parse(clean);
-
-    var vClass = obj.verdict === 'TAKE IT' ? 'take' : obj.verdict === 'FADE IT' ? 'fade' : 'neutral';
-    var vIcon = obj.verdict === 'TAKE IT' ? '▲' : obj.verdict === 'FADE IT' ? '▼' : '—';
-    var confWidth = obj.confidence || 50;
-
-    var html = '<div class="reasoning-body">';
-    html += '<div class="verdict '+vClass+'">'+vIcon+' '+obj.verdict+'</div>';
-    html += '<div style="margin-bottom:.3rem;font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em">CONFIDENCE</div>';
-    html += '<div class="confidence-bar" style="margin-bottom:.9rem"><div class="confidence-fill" style="width:'+confWidth+'%;background:'+(confWidth>65?'var(--green-light)':confWidth>40?'var(--gold)':'var(--red)')+'"></div></div>';
-    html += '<p style="margin-bottom:.8rem">'+obj.summary+'</p>';
-    if (obj.keyFactors && obj.keyFactors.length) {
-      html += '<div style="margin-bottom:.7rem">';
-      html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:.4rem">KEY FACTORS</div>';
-      obj.keyFactors.forEach(function(f){ html += '<div style="font-size:12px;color:#aaa;padding:.2rem 0;padding-left:.7rem;border-left:1px solid var(--green);margin-bottom:.3rem">'+f+'</div>'; });
-      html += '</div>';
-    }
-    if (obj.redFlags && obj.redFlags.length) {
-      html += '<div style="margin-bottom:.7rem">';
-      html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--red);letter-spacing:.1em;margin-bottom:.4rem">⚠ RED FLAGS</div>';
-      obj.redFlags.forEach(function(f){ html += '<div style="font-size:12px;color:#e66;padding:.2rem 0;padding-left:.7rem;border-left:1px solid var(--red);margin-bottom:.3rem">'+f+'</div>'; });
-      html += '</div>';
-    }
-    html += '<div style="font-family:\'Bebas Neue\',sans-serif;font-size:1rem;color:var(--text);letter-spacing:.04em;padding-top:.5rem;border-top:1px solid var(--border2)">'+obj.finalLine+'</div>';
-    html += '</div>';
-    el.innerHTML = html;
-  } catch(e) {
-    el.innerHTML = '<div style="color:var(--muted);font-size:13px">AI analysis unavailable — check your connection.</div>';
-  }
-}
-
-// ─── INJURY REPORT ─────────────────────────────────────────────────────────────
-async function getInjuryReport(idx, pick) {
-  var el = document.getElementById('injuries-'+idx);
-  var awayTeam = pick.g.away_team;
-  var homeTeam = pick.g.home_team;
-  var sport = pick.sport;
-
-  var prompt = `You are a sports injury analyst with access to today's injury reports.
-
-Game: ${awayTeam} @ ${homeTeam} (${sport})
-Today's date context: Pull the most realistic current injury data you know.
-
-Return a JSON object listing injuries for both teams. Be specific and realistic about typical injuries for these teams. Format:
-{
-  "away": [
-    {"player": "Name", "status": "Out" or "Questionable" or "Probable" or "Day-to-Day", "injury": "injury description", "impact": "high/medium/low", "bettingNote": "brief impact on the line"}
-  ],
-  "home": [
-    {"player": "Name", "status": "Out" or "Questionable" or "Probable" or "Day-to-Day", "injury": "injury description", "impact": "high/medium/low", "bettingNote": "brief impact on the line"}
-  ],
-  "summary": "One sentence summarizing injury situation and its effect on this matchup."
-}
-
-If you are not confident about specific injuries, return realistic placeholder data with a note. Always return valid JSON only.`;
-
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: 'You are a sports injury analyst. Respond with valid JSON only, no markdown, no backticks.',
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    var data = await resp.json();
-    var raw = data.content && data.content[0] ? data.content[0].text : '';
-    var clean = raw.replace(/```json|```/g,'').trim();
-    var obj = JSON.parse(clean);
-
-    function renderPlayers(players, teamName) {
-      if (!players || !players.length) return '<div style="font-size:12px;color:var(--muted);padding:.5rem 0">No significant injuries reported for '+teamName+'</div>';
-      return players.map(function(p){
-        var sc = p.status === 'Out' ? 'out' : p.status === 'Questionable' || p.status === 'Day-to-Day' ? 'questionable' : 'probable';
-        return '<div class="injury-item '+sc+'">'
-          + '<div class="injury-name">'+p.player+'<span class="injury-status '+sc+'">'+p.status+'</span></div>'
-          + '<div class="injury-detail">'+p.injury+'</div>'
-          + (p.bettingNote ? '<div style="font-size:11px;color:var(--blue);margin-top:3px">→ '+p.bettingNote+'</div>' : '')
-          + '</div>';
-      }).join('');
-    }
-
-    var html = '<div class="injury-list">';
-    html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:.6rem">'+awayTeam.toUpperCase()+' (AWAY)</div>';
-    html += renderPlayers(obj.away, awayTeam);
-    html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;margin:.8rem 0 .6rem">'+homeTeam.toUpperCase()+' (HOME)</div>';
-    html += renderPlayers(obj.home, homeTeam);
-    if (obj.summary) html += '<div style="margin-top:.8rem;font-size:12px;color:var(--blue);padding:.6rem;background:var(--blue-dim);border-radius:3px;border:1px solid rgba(77,170,255,.15)">'+obj.summary+'</div>';
-    html += '</div>';
-    html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted2);margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--border2)">⚠ Always verify injury status at official team sources before betting. Data is AI-estimated.</div>';
-    el.innerHTML = html;
-  } catch(e) {
-    el.innerHTML = '<div style="color:var(--muted);font-size:13px">Injury data unavailable.</div>';
-  }
-}
-
-// ─── GAME NEWS ────────────────────────────────────────────────────────────────
-async function getGameNews(idx, pick) {
-  var el = document.getElementById('gamenews-'+idx);
-  var awayTeam = pick.g.away_team;
-  var homeTeam = pick.g.home_team;
-  var sport = pick.sport;
-
-  var prompt = `You are a sports news analyst. Generate realistic, relevant pre-game news and context for this matchup.
-
-Game: ${awayTeam} @ ${homeTeam} (${sport})
-
-Return JSON only:
-{
-  "headlines": [
-    {
-      "headline": "News headline string",
-      "type": "injury" or "lineup" or "form" or "matchup" or "weather",
-      "team": "team name or 'both'",
-      "bettingImpact": "Bullish" or "Bearish" or "Neutral",
-      "detail": "1-2 sentence explanation of why this matters for bettors"
-    }
-  ],
-  "bettingContext": "2-3 sentences of overall pre-game betting context for this matchup — line movement, sharp action, public vs sharp split, etc."
-}
-
-Generate 3-5 headlines. Be realistic and specific. Return valid JSON only.`;
-
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: 'You are a sports news analyst. Respond with valid JSON only, no markdown, no backticks.',
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    var data = await resp.json();
-    var raw = data.content && data.content[0] ? data.content[0].text : '';
-    var clean = raw.replace(/```json|```/g,'').trim();
-    var obj = JSON.parse(clean);
-
-    var typeColors = {injury:'var(--gold)',lineup:'var(--blue)',form:'var(--green-light)',matchup:'var(--text)',weather:'var(--muted)'};
-    var impactColors = {Bullish:'var(--green-light)',Bearish:'var(--red)',Neutral:'var(--muted)'};
-
-    var html = '<div class="news-list">';
-    (obj.headlines||[]).forEach(function(h){
-      var tc = typeColors[h.type] || 'var(--blue)';
-      var ic = impactColors[h.bettingImpact] || 'var(--muted)';
-      html += '<div class="news-item">';
-      html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">';
-      html += '<div class="news-headline">'+h.headline+'</div>';
-      html += '<span style="font-family:\'Bebas Neue\',sans-serif;font-size:.75rem;letter-spacing:.08em;color:'+ic+';white-space:nowrap">'+h.bettingImpact+'</span>';
-      html += '</div>';
-      html += '<div class="news-meta" style="margin-bottom:4px"><span style="color:'+tc+'">'+h.type.toUpperCase()+'</span> · '+h.team+'</div>';
-      if (h.detail) html += '<div class="news-impact">'+h.detail+'</div>';
-      html += '</div>';
-    });
-    html += '</div>';
-    if (obj.bettingContext) {
-      html += '<div style="margin-top:.9rem;font-size:13px;color:#aaa;padding:.8rem;background:var(--surface2);border-radius:3px;border:1px solid var(--border2);line-height:1.7">'+obj.bettingContext+'</div>';
-    }
-    html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted2);margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--border2)">⚠ AI-generated context. Verify with official sources before betting.</div>';
-    el.innerHTML = html;
-  } catch(e) {
-    el.innerHTML = '<div style="color:var(--muted);font-size:13px">Game news unavailable.</div>';
-  }
-}
-
-// ─── PLAYER PROPS ─────────────────────────────────────────────────────────────
-async function analyzeProp() {
-  var player = document.getElementById('prop-player-input').value.trim();
-  var stat = document.getElementById('prop-stat-select').value;
-  var line = parseFloat(document.getElementById('prop-line-input').value);
-  var opponent = document.getElementById('prop-opponent-input').value.trim();
-
-  if (!player) { document.getElementById('props-status').textContent = 'Enter a player name first.'; return; }
-  if (!line || isNaN(line)) { document.getElementById('props-status').textContent = 'Enter the prop line (e.g. 24.5).'; return; }
-
-  var statusEl = document.getElementById('props-status');
-  var outputEl = document.getElementById('props-output');
-  statusEl.textContent = 'Analyzing '+player+'\'s '+stat+' prop...';
-  outputEl.innerHTML = '<div class="loading-inline" style="padding:2rem"><div class="spin"></div>Running prop analysis...</div>';
-
-  var prompt = `You are an elite NBA/MLB prop bet analyst with deep knowledge of player statistics.
-
-Analyze this player prop:
-Player: ${player}
-Stat: ${stat}
-Line: ${line}
-Opponent: ${opponent || 'unknown'}
-
-Provide a thorough analysis. Return this exact JSON:
-{
-  "playerName": "${player}",
-  "statType": "${stat}",
-  "line": ${line},
-  "opponent": "${opponent || 'TBD'}",
-  "recommendation": "OVER" or "UNDER" or "PASS",
-  "confidence": 1-100,
-  "predictedValue": number (your actual prediction),
-  "recentForm": {
-    "last5Avg": number,
-    "last10Avg": number,
-    "seasonAvg": number,
-    "hitRate": "X/10 games over the line" string
-  },
-  "matchupFactors": [
-    {"factor": "factor name", "value": "stat or description", "impact": "positive/negative/neutral"}
-  ],
-  "keyInsights": ["insight 1", "insight 2", "insight 3"],
-  "riskFactors": ["risk 1"] or [],
-  "summary": "2-3 sentence plain English recommendation with specific reasoning.",
-  "confidence_reasoning": "1 sentence on why you have this confidence level."
-}
-
-Be realistic and specific with stats. Return valid JSON only.`;
-
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1200,
-        system: 'You are an elite sports prop analyst. Respond with valid JSON only, no markdown, no backticks.',
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    var data = await resp.json();
-    var raw = data.content && data.content[0] ? data.content[0].text : '';
-    var clean = raw.replace(/```json|```/g,'').trim();
-    var obj = JSON.parse(clean);
-
-    var recClass = obj.recommendation === 'OVER' ? 'over' : obj.recommendation === 'UNDER' ? 'under' : 'neutral-prop';
-    var tagClass = obj.recommendation === 'OVER' ? 'over-tag' : obj.recommendation === 'UNDER' ? 'under-tag' : 'neutral-tag';
-    var predColor = obj.predictedValue > obj.line ? 'above' : 'below';
-    var confFill = obj.confidence || 50;
-    var confColor = confFill > 65 ? 'var(--green-light)' : confFill > 40 ? 'var(--gold)' : 'var(--red)';
-
-    var html = '<div class="prop-card '+recClass+'">';
-    // Header
-    html += '<div class="prop-header">';
-    html += '<div><div class="prop-player">'+obj.playerName+'</div>';
-    html += '<div class="prop-game-info">vs. '+obj.opponent+' · '+obj.statType.toUpperCase()+'</div></div>';
-    html += '<div class="prop-line-info">';
-    html += '<div class="prop-stat-type">'+obj.statType.toUpperCase()+'</div>';
-    html += '<div><div style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--muted);margin-bottom:2px">LINE</div>';
-    html += '<div class="prop-line">'+obj.line+'</div></div>';
-    html += '<div><div style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--muted);margin-bottom:2px">PROJECTED</div>';
-    html += '<div class="prop-line '+predColor+'" style="font-size:20px">'+obj.predictedValue+'</div></div>';
-    html += '<div class="prop-tag '+tagClass+'">'+obj.recommendation+'</div>';
-    html += '</div></div>';
-
-    // Body
-    html += '<div class="prop-body">';
-
-    // Recent form
-    html += '<div class="prop-stats-box">';
-    html += '<div class="prop-stats-title">RECENT FORM</div>';
-    if (obj.recentForm) {
-      var rf = obj.recentForm;
-      html += '<div class="prop-stat-row"><span class="prop-stat-label">Last 5 Avg</span><span class="prop-stat-val '+(rf.last5Avg > obj.line ? 'above':'below')+'">'+rf.last5Avg+'</span></div>';
-      html += '<div class="prop-stat-row"><span class="prop-stat-label">Last 10 Avg</span><span class="prop-stat-val '+(rf.last10Avg > obj.line ? 'above':'below')+'">'+rf.last10Avg+'</span></div>';
-      html += '<div class="prop-stat-row"><span class="prop-stat-label">Season Avg</span><span class="prop-stat-val '+(rf.seasonAvg > obj.line ? 'above':'below')+'">'+rf.seasonAvg+'</span></div>';
-      html += '<div class="prop-stat-row"><span class="prop-stat-label">Hit Rate</span><span class="prop-stat-val b">'+rf.hitRate+'</span></div>';
-    }
-    html += '</div>';
-
-    // Matchup factors
-    html += '<div class="prop-stats-box">';
-    html += '<div class="prop-stats-title">MATCHUP FACTORS</div>';
-    (obj.matchupFactors||[]).forEach(function(m){
-      var mc = m.impact === 'positive' ? 'above' : m.impact === 'negative' ? 'below' : '';
-      html += '<div class="prop-stat-row"><span class="prop-stat-label" style="font-size:11px">'+m.factor+'</span><span class="prop-stat-val '+mc+'" style="font-size:12px;text-align:right;max-width:120px">'+m.value+'</span></div>';
-    });
-    html += '</div>';
-
-    // Confidence
-    html += '<div style="grid-column:1/-1">';
-    html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:.4rem">CONFIDENCE: '+confFill+'%</div>';
-    html += '<div class="confidence-bar"><div class="confidence-fill" style="width:'+confFill+'%;background:'+confColor+'"></div></div>';
-    html += '<div style="font-size:11px;color:var(--muted);margin-top:.4rem">'+obj.confidence_reasoning+'</div>';
-    html += '</div>';
-
-    // Insights
-    html += '<div class="prop-reasoning">';
-    html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:.6rem">KEY INSIGHTS</div>';
-    (obj.keyInsights||[]).forEach(function(ins){
-      html += '<div style="font-size:12px;color:#aaa;padding:.25rem 0 .25rem .7rem;border-left:1px solid var(--green);margin-bottom:.3rem">'+ins+'</div>';
-    });
-    if (obj.riskFactors && obj.riskFactors.length) {
-      html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--red);letter-spacing:.1em;margin:.7rem 0 .4rem">⚠ RISK FACTORS</div>';
-      obj.riskFactors.forEach(function(r){
-        html += '<div style="font-size:12px;color:#e66;padding:.25rem 0 .25rem .7rem;border-left:1px solid var(--red);margin-bottom:.3rem">'+r+'</div>';
-      });
-    }
-    html += '<div style="margin-top:.8rem;font-size:13px;color:#bbb;line-height:1.75;padding:.8rem;background:var(--surface2);border-radius:3px;border:1px solid var(--border2)">'+obj.summary+'</div>';
-    html += '</div>';
-    html += '</div>'; // prop-body
-    html += '<div style="padding:.6rem 1.2rem;font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted2);border-top:1px solid var(--border2)">⚠ AI-powered analysis. Always verify stats and injury status before betting. For entertainment purposes only.</div>';
-    html += '</div>'; // prop-card
-
-    outputEl.innerHTML = html;
-    statusEl.textContent = 'Analysis complete for '+player+' '+stat+' '+obj.recommendation+'.';
-  } catch(e) {
-    outputEl.innerHTML = '<div class="empty"><div class="empty-t">ANALYSIS FAILED</div><p>'+e.message+'</p></div>';
-    statusEl.textContent = 'Error during analysis.';
-  }
-}
-
-// ─── NEWS FEED ────────────────────────────────────────────────────────────────
-async function fetchNews() {
-  var statusEl = document.getElementById('news-status');
-  var outputEl = document.getElementById('news-output');
-  statusEl.textContent = 'Fetching latest injury reports and news...';
-  outputEl.innerHTML = '<div class="loading-inline" style="padding:2rem"><div class="spin"></div>Loading...</div>';
-
-  var sportStr = newsSport === 'BOTH' ? 'NBA and MLB' : newsSport;
-  var typeStr = newsType === 'ALL' ? 'injuries and game news' : newsType === 'INJURIES' ? 'injury reports only' : 'game news only';
-
-  var prompt = `You are a sports news aggregator. Generate a realistic today's injury report and news feed for ${sportStr}, focusing on ${typeStr}.
-
-Return JSON:
-{
-  "items": [
-    {
-      "sport": "NBA" or "MLB",
-      "type": "injury" or "news",
-      "headline": "headline string",
-      "player": "player name or null",
-      "team": "team name",
-      "status": "Out" or "Questionable" or "Probable" or null (for non-injury),
-      "detail": "2-3 sentence explanation with betting impact",
-      "bettingImpact": "High" or "Medium" or "Low",
-      "impactDirection": "Bullish" or "Bearish" or "Neutral" (relative to the team mentioned)
-    }
-  ]
-}
-
-Generate 8-12 realistic, specific, and varied items. Include star players, key injuries, line movements, and game-time decisions. Return valid JSON only.`;
-
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 2000,
-        system: 'You are a sports news aggregator. Respond with valid JSON only, no markdown, no backticks.',
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    var data = await resp.json();
-    var raw = data.content && data.content[0] ? data.content[0].text : '';
-    var clean = raw.replace(/```json|```/g,'').trim();
-    var obj = JSON.parse(clean);
-
-    var items = obj.items || [];
-    if (newsType !== 'ALL') {
-      items = items.filter(function(i){ return newsType === 'INJURIES' ? i.type === 'injury' : i.type === 'news'; });
-    }
-    if (newsSport !== 'BOTH') {
-      items = items.filter(function(i){ return i.sport === newsSport; });
-    }
-
-    if (!items.length) {
-      outputEl.innerHTML = '<div class="empty"><div class="empty-t">NO ITEMS FOUND</div><p>Try changing the sport or type filter.</p></div>';
-      statusEl.textContent = 'No items matched your filters.';
-      return;
-    }
-
-    var impactColors = {High:'var(--red)',Medium:'var(--gold)',Low:'var(--muted)'};
-    var dirColors = {Bullish:'var(--green-light)',Bearish:'var(--red)',Neutral:'var(--muted)'};
-    var statusClasses = {Out:'out',Questionable:'questionable',Probable:'probable'};
-
-    var html = '<div class="news-feed">';
-    items.forEach(function(item, i){
-      var delay = (i * 0.05).toFixed(2);
-      var badgeCls = item.type === 'injury' ? 'injury' : item.sport.toLowerCase();
-      var ic = impactColors[item.bettingImpact] || 'var(--muted)';
-      var dc = dirColors[item.impactDirection] || 'var(--muted)';
-
-      html += '<div class="news-card" style="animation-delay:'+delay+'s">';
-      html += '<span class="news-sport-badge '+badgeCls+'">'+( item.type === 'injury' ? '🩹 INJURY' : item.sport)+'</span>';
-      html += '<div class="news-card-text">';
-      html += '<div class="news-card-headline">'+item.headline+'</div>';
-      html += '<div class="news-card-meta">';
-      html += item.team;
-      if (item.status) {
-        var sc = statusClasses[item.status] || '';
-        html += ' · <span class="injury-status '+sc+'" style="position:static;float:none;display:inline;font-family:\'Bebas Neue\',sans-serif;font-size:.75rem;letter-spacing:.08em">'+item.status+'</span>';
-      }
-      html += ' · Impact: <span style="color:'+ic+'">'+item.bettingImpact+'</span>';
-      html += ' · <span style="color:'+dc+'">'+item.impactDirection+'</span>';
-      html += '</div>';
-      if (item.detail) html += '<div class="news-impact">'+item.detail+'</div>';
-      html += '</div></div>';
-    });
-    html += '</div>';
-    html += '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--muted2);margin-top:1rem;text-align:center">⚠ AI-generated news context. Verify at official team and league sources before betting.</div>';
-    outputEl.innerHTML = html;
-    statusEl.textContent = 'Loaded '+items.length+' items · '+sportStr+' · '+typeStr;
-  } catch(e) {
-    outputEl.innerHTML = '<div class="empty"><div class="empty-t">FAILED TO LOAD</div><p>'+e.message+'</p></div>';
-    statusEl.textContent = 'Error fetching news.';
-  }
+    h+='</div><div class="disclaimer" style="text-align:center;margin-top:1rem">⚠ AI-generated. Verify at official sources before betting.</div>';
+    oEl.innerHTML=h;sEl.textContent='Loaded '+items.length+' items · '+sportStr+' · '+typeStr;
+  }catch(e){oEl.innerHTML='<div class="empty"><div class="empty-t">FAILED</div><p>'+e.message+'</p></div>';sEl.textContent='Error fetching news.';}
 }
 </script>
 </body>
