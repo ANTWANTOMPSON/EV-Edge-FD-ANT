@@ -523,7 +523,7 @@ async function fetchOdds(){
   var market=bet==='ML'?'h2h':'spreads',keys=SPORTS[sport],games=[];
   for(var i=0;i<keys.length;i++){
     var sk=keys[i],url='https://api.the-odds-api.com/v4/sports/'+sk+'/odds/?apiKey='+apiKey+'&regions=us&markets='+market+'&oddsFormat=american';
-    try{var r=await fetch(url),text=await r.text();if(!r.ok){var msg=r.status;try{msg=JSON.parse(text).message||msg;}catch(e){}setStatus('API error '+r.status+': '+msg);btn.disabled=false;btn.textContent="FETCH TODAY'S GAMES";return;}var data=JSON.parse(text);var todayStr=new Date().toISOString().slice(0,10);for(var j=0;j<data.length;j++){var ct=data[j].commence_time||'';if(ct.slice(0,10)===todayStr){data[j]._sport=sk.includes('nba')?'NBA':'MLB';games.push(data[j]);}}}
+    try{var r=await fetch(url),text=await r.text();if(!r.ok){var msg=r.status;try{msg=JSON.parse(text).message||msg;}catch(e){}setStatus('API error '+r.status+': '+msg);btn.disabled=false;btn.textContent="FETCH TODAY'S GAMES";return;}var data=JSON.parse(text);var now=new Date();var todayLocal=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');for(var j=0;j<data.length;j++){var ct=data[j].commence_time||'';var gd=new Date(ct);var gdLocal=gd.getFullYear()+'-'+String(gd.getMonth()+1).padStart(2,'0')+'-'+String(gd.getDate()).padStart(2,'0');if(gdLocal===todayLocal){data[j]._sport=sk.includes('nba')?'NBA':'MLB';games.push(data[j]);}}}
     catch(e){setStatus('Network error: '+e.message);btn.disabled=false;btn.textContent="FETCH TODAY'S GAMES";return;}
   }
   btn.disabled=false;btn.textContent='REFRESH';
