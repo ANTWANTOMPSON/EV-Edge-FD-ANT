@@ -533,13 +533,14 @@ async function fetchBestBets(){
   document.getElementById('s-bb').textContent=posC;
   document.getElementById('s-top').textContent=allPicks.length&&allPicks[0].side.EV>0?'$'+(allPicks[0].side.EV*100).toFixed(2):'--';
   updateROI();
-  var top=allPicks.filter(function(p){return p.score>0.15;}).slice(0,8);
+  var top=allPicks.filter(function(p){return p.side.EV>0;});
   if(!top.length){document.getElementById('bb-output').innerHTML='<div class="empty"><div class="et">NO EDGES TODAY</div></div>';document.getElementById('bb-status').textContent='No edges today.';return;}
-  document.getElementById('bb-status').textContent='Found '+games.length+' games | '+posC+' +EV | Top '+top.length+' shown | AI loading...';
+  document.getElementById('bb-status').textContent='Found '+games.length+' games | '+posC+' +EV spots | '+top.length+' bets shown | AI loading...';
   var html='<div class="sec-title">TODAY\'S BEST BETS</div><div class="bb-cards">';
   top.forEach(function(p,i){
     var t=tier(p.score),ec=p.side.EV>0?'g':'r';
     html+='<div class="bb-card '+t+'" style="animation-delay:'+(i*0.07)+'s">';
+    if(i===0)html+='<div style="background:linear-gradient(90deg,rgba(255,184,0,.12),transparent);border-bottom:1px solid rgba(255,184,0,.2);padding:.35rem 1.1rem;font-family:Bebas Neue,sans-serif;font-size:.75rem;letter-spacing:.18em;color:var(--gold)">&#9733; RECOMMENDED BEST BET</div>';
     html+='<div class="bb-top"><div class="bb-rank">'+String(i+1).padStart(2,'0')+'</div>';
     html+='<div class="bb-info"><div class="bb-game">'+p.g.away_team+' @ '+p.g.home_team+'</div>';
     html+='<div class="bb-pick">'+p.sport+' &middot; '+p.betType+' &middot; <strong style="color:var(--text)">'+p.side.name+'</strong> &middot; Best: '+fmt(p.side.bo)+' @ '+p.side.bk+'</div></div>';
@@ -556,7 +557,7 @@ async function fetchBestBets(){
   });
   html+='</div>';
   document.getElementById('bb-output').innerHTML=html;
-  top.forEach(function(p,i){(function(idx,pick){getBBAI(idx,pick);})(i,p);});
+  top.slice(0,8).forEach(function(p,i){(function(idx,pick){getBBAI(idx,pick);})(i,p);});
 }
 
 async function getBBAI(idx,p){
